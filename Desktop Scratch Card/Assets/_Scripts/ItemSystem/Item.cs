@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.PlayerLoop;
 
 [RequireComponent(typeof(PhysicsDragger))]
-public class ItemBase : MonoBehaviour
+public class Item : MonoBehaviour
 {
     public ItemType itemType;
     public float itemSize;
