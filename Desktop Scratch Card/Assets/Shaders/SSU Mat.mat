@@ -229,7 +229,7 @@ Material:
     - _EnableHologram: 0
     - _EnableHue: 0
     - _EnableInkSpread: 0
-    - _EnableInnerOutline: 1.1
+    - _EnableInnerOutline: 1
     - _EnableMetal: 0
     - _EnableNegative: 0
     - _EnableOuterOutline: 0
