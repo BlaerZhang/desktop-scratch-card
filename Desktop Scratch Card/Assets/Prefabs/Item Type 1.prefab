@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7364660254334747718}
   - component: {fileID: 2640277009588484338}
+  - component: {fileID: 7281786619736505593}
   m_Layer: 0
   m_Name: Collider
   m_TagString: Untagged
@@ -39,7 +40,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4829275779852412651}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
@@ -78,6 +79,42 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!58 &7281786619736505593
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4829275779852412651}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 0.5
 --- !u!1 &5048684546067785324
 GameObject:
   m_ObjectHideFlags: 0
@@ -127,9 +164,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cda45c85a0488aa4088fa048f3edfe0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceMultiplier: 200
-  maxForce: 500
-  dampingFactor: 4
+  forceMultiplier: 600
+  maxForce: 1000
+  dampingFactor: 10
 --- !u!114 &2458929895885905383
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,8 +197,8 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_GravityScale: 5
+  m_Material: {fileID: 6200000, guid: 6847b243722623046ae701a37003b799, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
