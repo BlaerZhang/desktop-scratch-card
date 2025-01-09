@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using _Scripts.ItemCountGenerator;
+using TMPro;
 // using _Scripts.Merger;
 using UnityEngine;
 
@@ -8,23 +10,23 @@ namespace _Scripts.GridSystem
     public class GridManager : MonoBehaviour
     {
         public static Action<Vector2Int, bool> onCoverRevealStateChanged;
+        public static Action<Vector2Int> onCoverRevealed;
         public static Action<Vector2Int> onMouseOverRevealedItem;
         public static Action onMouseExitRevealedItem;
         public static Action<Vector2Int> onMouseDownRevealedItem;
 
+        [Header("Grid Master")]
         public GridItemSO gridItemSo;
+        public GridGenerator gridGenerator;
+        public GridItemCountGenerator gridItemCountGenerator;
 
-        public int rows = 5;
-        public int columns = 5;
+        [Header("Grid Settings")]
+        public Vector2Int gridDimension = new Vector2Int(3, 3);
         public Vector2 gridGapLength = Vector2.zero;
         public Vector2 generateStartPoint = Vector2.zero;
-
-        [Header("SFX")] 
-        public AudioClip chickSound;
-        public AudioClip treeSound;
         
         private GridData _gridData;
-        private GridGenerator _gridGenerator;
+
         private void OnEnable()
         {
             onCoverRevealStateChanged += OnGridRevealStateChanged;
@@ -41,13 +43,22 @@ namespace _Scripts.GridSystem
             onMouseDownRevealedItem -= OnMouseDownRevealedItem;
         }
 
+        // TODO: trigger the generator of the scratch card
+
         void Start()
         {
             _gridData = new GridData();
 
-            _gridGenerator = new GridGenerator(rows, columns, gridGapLength, generateStartPoint, gridItemSo, _gridData);
-            _gridGenerator.GenerateAllGrids();
+            GenerateScratchCard();
             // _gridItemMerger = new GridItemMerger(gridItemSo, _gridData);
+        }
+
+        private void GenerateScratchCard()
+        {
+            var itemCounts = gridItemCountGenerator.GenerateGridItemCount(gridDimension);
+
+            gridGenerator.Initialize(gridDimension, gridGapLength, generateStartPoint, gridItemSo, _gridData, itemCounts);
+            gridGenerator.GenerateAllGrids();
         }
 
         private void OnGridGenerated()
@@ -66,7 +77,7 @@ namespace _Scripts.GridSystem
             else _gridData.revealedGrids.Remove(revealedGrid);
         }
 
-        private List<Vector2Int> _cluster = new List<Vector2Int>();
+        // private List<Vector2Int> _cluster = new List<Vector2Int>();
         private void OnMouseOverRevealedItem(Vector2Int originItemGrid)
         {
             // _cluster = _clusterDetector.CheckClusters(originItemGrid);
@@ -85,8 +96,8 @@ namespace _Scripts.GridSystem
         private void OnMouseExitRevealedItem()
         {
             // reset color
-            var clusterBGs = GameObject.FindGameObjectsWithTag("ClusterBG");
-            foreach (var c in clusterBGs) Destroy(c);
+            // var clusterBGs = GameObject.FindGameObjectsWithTag("ClusterBG");
+            // foreach (var c in clusterBGs) Destroy(c);
         }
 
         private void OnMouseDownRevealedItem(Vector2Int mergeOrigin)

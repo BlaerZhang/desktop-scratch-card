@@ -1,30 +1,59 @@
 using System.Collections.Generic;
+using _Scripts.ItemCountGenerator;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace _Scripts.GridSystem
 {
-    public class GridGenerator
+    public class GridGenerator : MonoBehaviour
     {
+        public Canvas textCanvas;
+        public TextMeshProUGUI itemCountTextPrefab;
+
         private GridItemSO _gridItemSo;
 
-        private GameObject itemParentObject = new GameObject("GridItemParent");
-        private GameObject coverParentObject = new GameObject("CoverParent");
+        private GameObject scratchCardObject;
+        private GameObject itemParentObject;
+        private GameObject coverParentObject;
+        private Canvas textCanvasObject;
 
         private int _rows;
         private int _columns;
         private Vector2 _gridGapLength;
         private Vector2 _startPoint;
         private GridData _gridData;
+        private int[,] _itemCounts;
 
-        public GridGenerator(int rows, int columns, Vector2 gridGapLength, Vector2 startPoint, GridItemSO gridItemSo, GridData gridData)
+        public void Initialize(Vector2Int dimension, Vector2 gridGapLength, Vector2 startPoint, GridItemSO gridItemSo, GridData gridData, int[,] itemCounts)
         {
-            _rows = rows;
-            _columns = columns;
+            // basic frame of the scratch card
+            scratchCardObject = new GameObject("Scratch Card");
+            textCanvasObject = Instantiate(textCanvas, scratchCardObject.transform);
+            itemParentObject = new GameObject("Grid Items")
+            {
+                transform =
+                {
+                    parent = scratchCardObject.transform
+                }
+            };
+            coverParentObject = new GameObject("Covers")
+            {
+                transform =
+                {
+                    parent = scratchCardObject.transform
+                }
+            };
+
+            // fetch data
+            _rows = dimension.x;
+            _columns = dimension.y;
             _gridGapLength = gridGapLength;
             _startPoint = startPoint;
             _gridItemSo = gridItemSo;
             _gridData = gridData;
+            _itemCounts = itemCounts;
         }
 
         private void GenerateCover(int row, int column)
@@ -64,11 +93,28 @@ namespace _Scripts.GridSystem
             // _gridData.covers[row, column] = mergerGridCover;
         }
 
-        public GridItemData FetchGridItem(GridItemType type, int level)
+        private GridItemData FetchGridItem(GridItemType type, int level)
         {
             return _gridItemSo.itemPool[type].itemLevelData[level];
         }
 
+        private void DistributeItemCount(int row, int column, Vector2 position, int itemCount)
+        {
+            TextMeshProUGUI itemCountText = Instantiate(itemCountTextPrefab, Camera.main.WorldToScreenPoint(position-new Vector2(0, 0.25f)), Quaternion.identity, textCanvasObject.transform);
+            itemCountText.text = itemCount.ToString();
+            itemCountText.fontSize = 36;
+            itemCountText.alignment = TextAlignmentOptions.Center;
+
+            itemCountText.GetComponent<ItemCountText>().Grid = new Vector2Int(row, column);
+
+            itemCountText.DOFade(0, 0);
+        }
+
+        /// <summary>
+        /// generate a random grid in specific location
+        /// </summary>
+        /// <param name="row"></param>
+        /// <param name="column"></param>
         public void GenerateRandomGrid(int row, int column)
         {
             GameObject itemObject = new GameObject("Item" + row + "_" + column)
@@ -78,7 +124,7 @@ namespace _Scripts.GridSystem
                     // set position
                     parent = itemParentObject.transform,
                     position = new Vector2(_startPoint.x + column * (1 + _gridGapLength.x), _startPoint.y - row * (1 + _gridGapLength.y) ),
-                    localScale = Vector3.one * 0.6f
+                    localScale = Vector3.one
                 }
             };
 
@@ -97,8 +143,19 @@ namespace _Scripts.GridSystem
             // set sprite
             SpriteRenderer sr = itemObject.AddComponent<SpriteRenderer>();
             sr.sprite = itemData.image;
+
+            // distribute item count
+            int currentItemCount = _itemCounts[row, column];
+            DistributeItemCount(row, column, itemObject.transform.position, currentItemCount);
         }
 
+        /// <summary>
+        /// generate a grid of specific type and level in specific location
+        /// </summary>
+        /// <param name="row"></param>
+        /// <param name="column"></param>
+        /// <param name="type"></param>
+        /// <param name="level"></param>
         public void GenerateSingleGrid(int row, int column, GridItemType type, int level)
         {
             GameObject itemObject = new GameObject("Item" + row + "_" + column)
@@ -138,6 +195,7 @@ namespace _Scripts.GridSystem
                 for (int j = 0; j < _columns; j++)
                 {
                     GenerateRandomGrid(i, j);
+
                     // add cover
                     GenerateCover(i, j);
                 }

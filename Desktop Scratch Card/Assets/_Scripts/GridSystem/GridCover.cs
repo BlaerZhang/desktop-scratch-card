@@ -58,6 +58,7 @@ public class GridCover : MonoBehaviour
 
     private void RevealGrid()
     {
+        // print(grid + "revealed");
         isRevealing = true;
 
         //Generate Icon
@@ -67,13 +68,14 @@ public class GridCover : MonoBehaviour
             isRevealed = true;
             isRevealing = false;
             GridManager.onCoverRevealStateChanged?.Invoke(grid, true);
+            GridManager.onCoverRevealed?.Invoke(grid);
         }));
     }
 
-    public void Reset()
-    {
-        isRevealed = false;
-        _spriteRenderer.DOFade(1, 0);
-        _spriteRenderer.DOColor(Color.gray, 0);
-    }
+    // public void ResetCover()
+    // {
+    //     isRevealed = false;
+    //     _spriteRenderer.DOFade(1, 0);
+    //     _spriteRenderer.DOColor(Color.gray, 0);
+    // }
 }

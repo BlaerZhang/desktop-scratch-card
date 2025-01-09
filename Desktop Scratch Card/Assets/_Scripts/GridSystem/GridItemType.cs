@@ -2,10 +2,10 @@ namespace _Scripts.GridSystem
 {
     public enum GridItemType
     {
-        RiceBall,
-        Cake,
-        Popcorn,
-        Pizza,
-        Meat
+        Apple,
+        Orange,
+        Banana,
+        Watermelon,
+        Grape
     }
 }
