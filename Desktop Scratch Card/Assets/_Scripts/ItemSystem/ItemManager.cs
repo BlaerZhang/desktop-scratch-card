@@ -75,7 +75,7 @@ public class ItemManager : SerializedMonoBehaviour
     /// </summary>
     /// <param name="type"></param>
     /// <param name="quantity">default set to 1</param>
-    public void RemoveItem(ItemType type, int quantity = 1)
+    public void RemoveItemByItemType(ItemType type, int quantity = 1)
     {
         for (int i = 0; i < quantity; i++)
         {
@@ -87,9 +87,20 @@ public class ItemManager : SerializedMonoBehaviour
         
             // 移除找到的项
             playerItemList.Remove(itemToRemove);
+            
+            itemToRemove.OnItemRemoved();
         }
     
         // 更新统计
+        CalculateItems();
+    }
+
+    public void RemoveGivenItem(Item item)
+    {
+        playerItemList.Remove(item);
+        
+        item.OnItemRemoved();
+        
         CalculateItems();
     }
 }
