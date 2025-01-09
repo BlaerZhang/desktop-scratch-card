@@ -184,7 +184,7 @@ namespace _Scripts.GridSystem
             sr.sprite = itemData.image;
         }
 
-        public void GenerateAllGrids()
+        public GameObject GenerateAllGrids()
         {
             _gridData.items = new GridItem[_rows, _columns];
             // _gridData.covers = new MergerGridCover[_rows, _columns];
@@ -200,6 +200,8 @@ namespace _Scripts.GridSystem
                     GenerateCover(i, j);
                 }
             }
+
+            return scratchCardObject;
         }
     }
 }

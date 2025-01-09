@@ -53,12 +53,24 @@ namespace _Scripts.GridSystem
             // _gridItemMerger = new GridItemMerger(gridItemSo, _gridData);
         }
 
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Space)) GenerateScratchCard();
+        }
+
+        private GameObject _currentScratchCard;
+
         private void GenerateScratchCard()
         {
+            if (_currentScratchCard != null)
+            {
+                Destroy(_currentScratchCard.gameObject);
+            }
+
             var itemCounts = gridItemCountGenerator.GenerateGridItemCount(gridDimension);
 
             gridGenerator.Initialize(gridDimension, gridGapLength, generateStartPoint, gridItemSo, _gridData, itemCounts);
-            gridGenerator.GenerateAllGrids();
+            _currentScratchCard = gridGenerator.GenerateAllGrids();
         }
 
         private void OnGridGenerated()
