@@ -13,6 +13,7 @@ public class TimeScheduler : MonoBehaviour
         public int minutes;            // 事件触发的分钟（0-59）
         public float duration;         // 事件持续时间（秒）
         public BaseScheduledEventHandler eventHandler;  // 事件处理器
+        public bool hideInTimeTable;
         public bool isActive;          // 事件是否正在进行中
     }
 
@@ -24,6 +25,7 @@ public class TimeScheduler : MonoBehaviour
         public int periodMinutes;      // 周期（分钟）
         public float duration;         // 每次触发的持续时间
         public BaseScheduledEventHandler eventHandler;  // 事件处理器
+        public bool hideInTimeTable;
     }
 
     // 在Inspector中配置的事件列表
@@ -70,12 +72,13 @@ public class TimeScheduler : MonoBehaviour
                 // 创建具体的计划事件
                 var scheduledEvent = new ScheduledEvent
                 {
-                    eventName = $"{periodicConfig.eventName}_{eventHours:D2}:{eventMinutes:D2}",
+                    eventName = $"{periodicConfig.eventName}",
                     hours = eventHours,
                     minutes = eventMinutes,
                     duration = periodicConfig.duration,
                     eventHandler = periodicConfig.eventHandler,
-                    isActive = false
+                    isActive = false,
+                    hideInTimeTable = periodicConfig.hideInTimeTable
                 };
 
                 scheduledEvents.Add(scheduledEvent);
@@ -174,7 +177,7 @@ public class TimeScheduler : MonoBehaviour
 
     // 手动添加一次性事件的方法
     public void AddScheduledEvent(string name, int hours, int minutes, 
-        float duration, BaseScheduledEventHandler handler)
+        float duration, BaseScheduledEventHandler handler, bool hideInTimeTable = false)
     {
         var newEvent = new ScheduledEvent
         {
@@ -183,7 +186,8 @@ public class TimeScheduler : MonoBehaviour
             minutes = minutes,
             duration = duration,
             eventHandler = handler,
-            isActive = false
+            isActive = false,
+            hideInTimeTable = hideInTimeTable
         };
 
         scheduledEvents.Add(newEvent);
@@ -192,14 +196,15 @@ public class TimeScheduler : MonoBehaviour
 
     // 手动添加周期性事件的方法
     public void AddPeriodicEvent(string name, int periodMinutes, 
-        float duration, BaseScheduledEventHandler handler)
+        float duration, BaseScheduledEventHandler handler, bool hideInTimeTable = false)
     {
         var newConfig = new PeriodicEventConfig
         {
             eventName = name,
             periodMinutes = periodMinutes,
             duration = duration,
-            eventHandler = handler
+            eventHandler = handler,
+            hideInTimeTable = hideInTimeTable
         };
 
         periodicEventConfigs.Add(newConfig);
