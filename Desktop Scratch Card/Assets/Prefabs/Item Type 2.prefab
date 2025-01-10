@@ -295,6 +295,7 @@ MonoBehaviour:
   forceMultiplier: 600
   maxForce: 1000
   dampingFactor: 10
+  isDragging: 0
 --- !u!114 &2458929895885905383
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -307,9 +308,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea223f712ff728349b82a6fd26607621, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemType: 1
+  itemType: 2
   itemSize: 0
   itemWeight: 0
+  physicsDragger: {fileID: 0}
 --- !u!50 &234060624917778531
 Rigidbody2D:
   serializedVersion: 5
@@ -335,7 +337,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 1
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!58 &2940545203957214084
 CircleCollider2D:

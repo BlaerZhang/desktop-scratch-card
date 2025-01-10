@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -127,6 +128,7 @@ public class OrderManager : SerializedMonoBehaviour
         canSubmit = currentOrder.orderDetail.ContainsKey(item.itemType);
 
         if (canSubmit) currentOrder.orderDetail[item.itemType] += Vector2Int.right; //item count +1
+        UpdateUI();
         
         return canSubmit;
     }
@@ -158,7 +160,10 @@ public class OrderManager : SerializedMonoBehaviour
         if (canFulfill)
         {
             //TODO: Fulfill & Pay Money!!!
-            orderList[currentDealingOrderIndex] = GenerateOrderFromConfig(orderConfigs[currentDealingOrderIndex]);
+            orderList[currentDealingOrderIndex] = GenerateOrderFromConfig(orderConfigs[currentDealingOrderIndex]); //generate new order
+            
+            //Reset Buttons
+            foreach (var button in orderButtons) button.interactable = true;
             UpdateUI();
         }
         
@@ -169,15 +174,20 @@ public class OrderManager : SerializedMonoBehaviour
     {
         Order currentOrder = orderList[currentDealingOrderIndex];
         List<Vector2Int> returningItems = new List<Vector2Int>();
-        foreach (var orderKvp in currentOrder.orderDetail)
+        List<GridItemType> keys = new List<GridItemType>(currentOrder.orderDetail.Keys);
+    
+        foreach (var key in keys)
         {
-            returningItems.Add(new Vector2Int((int)orderKvp.Key, orderKvp.Value.x));
+            var value = currentOrder.orderDetail[key];
+            returningItems.Add(new Vector2Int((int)key, value.x));
+            currentOrder.orderDetail[key] = new Vector2Int(0, value.y);
         }
         
         onSubmissionCancelled?.Invoke(returningItems);
         
         //Reset Buttons
         foreach (var button in orderButtons) button.interactable = true;
+        UpdateUI();
     }
     
 }
