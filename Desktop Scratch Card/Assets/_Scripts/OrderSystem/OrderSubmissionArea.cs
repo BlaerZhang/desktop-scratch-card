@@ -6,11 +6,21 @@ public class OrderSubmissionArea : MonoBehaviour
     private Item itemDragging;
     private OrderManager orderManager;
     private ItemManager itemManager;
+    private bool shouldSubmit = false;  // 新增标志位
 
     private void Start()
     {
         orderManager = FindFirstObjectByType<OrderManager>();
         itemManager = FindFirstObjectByType<ItemManager>();
+    }
+
+    private void Update()
+    {
+        // 在 Update 中检测输入
+        if (itemDragging != null && Input.GetMouseButtonUp(0))
+        {
+            shouldSubmit = true;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -30,11 +40,12 @@ public class OrderSubmissionArea : MonoBehaviour
     {
         if (other.attachedRigidbody.GetComponent<Item>() != itemDragging) return;
 
-        if (Input.GetMouseButtonUp(0))
+        // 检查并消耗标志位
+        if (shouldSubmit)
         {
+            shouldSubmit = false;  // 重置标志位
             if (orderManager.TrySubmit(itemDragging))
             {
-                
                 itemManager.RemoveGivenItem(itemDragging);
                 itemDragging = null;
             }
@@ -43,7 +54,11 @@ public class OrderSubmissionArea : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.attachedRigidbody.GetComponent<Item>() == itemDragging) itemDragging = null;
+        if (other.attachedRigidbody.GetComponent<Item>() == itemDragging)
+        {
+            itemDragging = null;
+            shouldSubmit = false;  // 确保在物品离开时重置标志位
+        }
         
         Item item = other.attachedRigidbody.gameObject.GetComponent<Item>();
         //reset feedback
