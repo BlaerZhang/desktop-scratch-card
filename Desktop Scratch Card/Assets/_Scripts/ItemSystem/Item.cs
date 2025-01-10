@@ -1,4 +1,5 @@
 using System;
+using _Scripts.GridSystem;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
@@ -6,7 +7,7 @@ using UnityEngine.PlayerLoop;
 [RequireComponent(typeof(PhysicsDragger))]
 public class Item : MonoBehaviour
 {
-    public ItemType itemType;
+    public GridItemType itemType;
     public float itemSize;
     public float itemWeight;
 

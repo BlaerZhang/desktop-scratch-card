@@ -15,6 +15,8 @@ namespace _Scripts.GridSystem
         public static Action onMouseExitRevealedItem;
         public static Action<Vector2Int> onMouseDownRevealedItem;
 
+        public static Action<List<Vector2Int>> onScratchCardSubmitted;
+
         [Header("Grid Master")]
         public GridItemSO gridItemSo;
         public GridGenerator gridGenerator;
@@ -33,6 +35,8 @@ namespace _Scripts.GridSystem
             onMouseOverRevealedItem += OnMouseOverRevealedItem;
             onMouseExitRevealedItem += OnMouseExitRevealedItem;
             onMouseDownRevealedItem += OnMouseDownRevealedItem;
+
+            onCoverRevealed += OnCoverRevealed;
         }
 
         private void OnDisable()
@@ -41,6 +45,8 @@ namespace _Scripts.GridSystem
             onMouseOverRevealedItem -= OnMouseOverRevealedItem;
             onMouseExitRevealedItem -= OnMouseExitRevealedItem;
             onMouseDownRevealedItem -= OnMouseDownRevealedItem;
+
+            onCoverRevealed -= OnCoverRevealed;
         }
 
         // TODO: trigger the generator of the scratch card
@@ -56,21 +62,50 @@ namespace _Scripts.GridSystem
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Space)) GenerateScratchCard();
+            if (Input.GetKeyDown(KeyCode.Return)) SubmitScratchCard();
         }
 
-        private GameObject _currentScratchCard;
+        private ScratchCard _currentScratchCard;
+        private int _revealedGrids = 0;
+        private bool _scratchCardFinished = false;
+
+        private void SubmitScratchCard()
+        {
+            if (_scratchCardFinished)
+            {
+                // TODO: submit card
+                _currentScratchCard.SelfDestroy();
+                _revealedGrids = 0;
+                print("scratch card submitted");
+
+                // generate items
+                onScratchCardSubmitted?.Invoke(_currentScratchCard.GetRewardList());
+            }
+        }
 
         private void GenerateScratchCard()
         {
             if (_currentScratchCard != null)
             {
-                Destroy(_currentScratchCard.gameObject);
+                _currentScratchCard.SelfDestroy();
+                _revealedGrids = 0;
             }
 
+            // TODO: give card
             var itemCounts = gridItemCountGenerator.GenerateGridItemCount(gridDimension);
 
             gridGenerator.Initialize(gridDimension, gridGapLength, generateStartPoint, gridItemSo, _gridData, itemCounts);
             _currentScratchCard = gridGenerator.GenerateAllGrids();
+        }
+
+        private void OnCoverRevealed(Vector2Int revealedGrid)
+        {
+            _revealedGrids++;
+            int totalGrids = gridDimension.x * gridDimension.y;
+            if (_revealedGrids == totalGrids)
+            {
+                _scratchCardFinished = true;
+            }
         }
 
         private void OnGridGenerated()

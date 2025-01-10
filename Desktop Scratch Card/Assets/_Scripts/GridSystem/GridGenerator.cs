@@ -14,7 +14,7 @@ namespace _Scripts.GridSystem
 
         private GridItemSO _gridItemSo;
 
-        private GameObject scratchCardObject;
+        private ScratchCard scratchCardObject;
         private GameObject itemParentObject;
         private GameObject coverParentObject;
         private Canvas textCanvasObject;
@@ -29,7 +29,7 @@ namespace _Scripts.GridSystem
         public void Initialize(Vector2Int dimension, Vector2 gridGapLength, Vector2 startPoint, GridItemSO gridItemSo, GridData gridData, int[,] itemCounts)
         {
             // basic frame of the scratch card
-            scratchCardObject = new GameObject("Scratch Card");
+            scratchCardObject = new GameObject("Scratch Card").AddComponent<ScratchCard>();
             textCanvasObject = Instantiate(textCanvas, scratchCardObject.transform);
             itemParentObject = new GameObject("Grid Items")
             {
@@ -98,7 +98,7 @@ namespace _Scripts.GridSystem
             return _gridItemSo.itemPool[type].itemLevelData[level];
         }
 
-        private void DistributeItemCount(int row, int column, Vector2 position, int itemCount)
+        private void DistributeItemCount(int row, int column, Vector2 position, GridItemType itemType, int itemCount)
         {
             TextMeshProUGUI itemCountText = Instantiate(itemCountTextPrefab, Camera.main.WorldToScreenPoint(position-new Vector2(0, 0.25f)), Quaternion.identity, textCanvasObject.transform);
             itemCountText.text = itemCount.ToString();
@@ -108,6 +108,12 @@ namespace _Scripts.GridSystem
             itemCountText.GetComponent<ItemCountText>().Grid = new Vector2Int(row, column);
 
             itemCountText.DOFade(0, 0);
+
+            // fill the reward list of the scratch card
+            if (itemCount > 0)
+            {
+                scratchCardObject.AddReward(itemType, itemCount);
+            }
         }
 
         /// <summary>
@@ -146,7 +152,7 @@ namespace _Scripts.GridSystem
 
             // distribute item count
             int currentItemCount = _itemCounts[row, column];
-            DistributeItemCount(row, column, itemObject.transform.position, currentItemCount);
+            DistributeItemCount(row, column, itemObject.transform.position, itemType, currentItemCount);
         }
 
         /// <summary>
@@ -184,7 +190,7 @@ namespace _Scripts.GridSystem
             sr.sprite = itemData.image;
         }
 
-        public GameObject GenerateAllGrids()
+        public ScratchCard GenerateAllGrids()
         {
             _gridData.items = new GridItem[_rows, _columns];
             // _gridData.covers = new MergerGridCover[_rows, _columns];

@@ -2,10 +2,10 @@ namespace _Scripts.GridSystem
 {
     public enum GridItemType
     {
-        Apple,
-        Orange,
-        Banana,
-        Watermelon,
-        Grape
+        Apple = 0,
+        Orange = 1,
+        Banana = 2,
+        Watermelon = 3,
+        Grape = 4
     }
 }
