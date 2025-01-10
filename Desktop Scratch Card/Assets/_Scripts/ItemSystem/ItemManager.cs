@@ -40,9 +40,9 @@ public class ItemManager : SerializedMonoBehaviour
     
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Alpha1)) AddItem(ItemType.type1);
-        if(Input.GetKeyDown(KeyCode.Alpha2)) AddItem(ItemType.type2);
-        if (Input.GetKeyDown(KeyCode.Alpha3)) AddItem(ItemType.type1, 3);
+        if(Input.GetKeyDown(KeyCode.Alpha1)) AddItem(ItemType.Apple);
+        if(Input.GetKeyDown(KeyCode.Alpha2)) AddItem(ItemType.Orange);
+        if (Input.GetKeyDown(KeyCode.Alpha3)) AddItem(ItemType.Apple, 3);
     }
 
     /// <summary>
