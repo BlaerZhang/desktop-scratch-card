@@ -59,7 +59,7 @@ public class OrderManager : SerializedMonoBehaviour
     public static Action<List<Vector2Int>> onSubmissionCancelled;
 
     [Title("UI")] 
-    public GameObject orderSubmissionArea;
+    // public GameObject orderSubmissionArea;
     public Button originalOrderButton;
     public List<Button> orderButtons;
     
@@ -168,6 +168,8 @@ public class OrderManager : SerializedMonoBehaviour
         }
         
         else CancelSubmission();
+
+        isSubmitting = false;
     }
 
     public void CancelSubmission()
@@ -184,6 +186,7 @@ public class OrderManager : SerializedMonoBehaviour
         }
         
         onSubmissionCancelled?.Invoke(returningItems);
+        isSubmitting = false;
         
         //Reset Buttons
         foreach (var button in orderButtons) button.interactable = true;
