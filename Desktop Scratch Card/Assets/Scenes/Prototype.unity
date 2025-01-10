@@ -529,7 +529,6 @@ MonoBehaviour:
   orderList: []
   isSubmitting: 0
   currentDealingOrderIndex: 0
-  orderSubmissionArea: {fileID: 0}
   originalOrderButton: {fileID: 38322605}
   orderButtons: []
 --- !u!1 &519420028
@@ -2095,7 +2094,10 @@ MonoBehaviour:
     SerializedBytes: 
     ReferencedUnityObjects:
     - {fileID: 5048684546067785324, guid: a2db7f49a7094b64f838ecb83769471a, type: 3}
+    - {fileID: 5048684546067785324, guid: 3022281f7f1ff5b4a8088470a18b7f71, type: 3}
     - {fileID: 5048684546067785324, guid: 10bd0150d4e4e3642be79bb5fc96f29b, type: 3}
+    - {fileID: 5048684546067785324, guid: 6a5a59ba3fa02c143a3696e6c57b151e, type: 3}
+    - {fileID: 5048684546067785324, guid: cf42cba0dbf9c894bbabcdb8bd190cfc, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -2123,7 +2125,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 5
     - Name: 
       Entry: 7
       Data: 
@@ -2145,6 +2147,42 @@ MonoBehaviour:
     - Name: $v
       Entry: 10
       Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1
+    - Name: $v
+      Entry: 10
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 3
+    - Name: $v
+      Entry: 10
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 4
+    - Name: $v
+      Entry: 10
+      Data: 4
     - Name: 
       Entry: 8
       Data: 

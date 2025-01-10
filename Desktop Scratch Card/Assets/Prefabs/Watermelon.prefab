@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 7525888635355953523, guid: edcb2fe5798963d44beb78e9d03db1fe, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b93412bff0fa4a14ea076bf5dc94f8c2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -164,7 +164,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 355878bb26d784c4eb4ecbd496644c8f, type: 3}
+  m_Sprite: {fileID: 8135635709917137901, guid: 6e5145ffbcda068499a93fa643e93816, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -257,7 +257,7 @@ GameObject:
   - component: {fileID: 234060624917778531}
   - component: {fileID: 2940545203957214084}
   m_Layer: 0
-  m_Name: Item Type 2
+  m_Name: Watermelon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -308,7 +308,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea223f712ff728349b82a6fd26607621, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemType: 2
+  itemType: 3
   itemSize: 0
   itemWeight: 0
   physicsDragger: {fileID: 0}
