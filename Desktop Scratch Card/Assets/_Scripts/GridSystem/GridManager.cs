@@ -74,9 +74,10 @@ namespace _Scripts.GridSystem
             if (_scratchCardFinished)
             {
                 // TODO: submit card
+                _scratchCardFinished = false;
                 _currentScratchCard.SelfDestroy();
                 _revealedGrids = 0;
-                print("scratch card submitted");
+                // print("scratch card submitted");
 
                 // generate items
                 onScratchCardSubmitted?.Invoke(_currentScratchCard.GetRewardList());
