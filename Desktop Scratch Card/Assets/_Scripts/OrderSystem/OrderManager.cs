@@ -15,19 +15,19 @@ public class OrderManager : SerializedMonoBehaviour
     {
         public int orderIndex;
         public int requiredTypeCount;
-        public SerializedDictionary<ItemType, Vector2> orderDetail;
+        public SerializedDictionary<GridItemType, Vector2Int> orderDetail;
         public int reward;
         public bool isActive;
 
         public Order(int orderIndex, int typeCount, int minRequiredAmount, int maxRequiredAmount)
         {
             requiredTypeCount = typeCount;
-            orderDetail = new SerializedDictionary<ItemType, Vector2>();
-            ItemType[] requiredTypes = EnumExtensions.GetRandomUniqueValues<ItemType>(typeCount);
+            orderDetail = new SerializedDictionary<GridItemType, Vector2Int>();
+            GridItemType[] requiredTypes = EnumExtensions.GetRandomUniqueValues<GridItemType>(typeCount);
             foreach (var type in requiredTypes)
             {
                 int requiredAmount = Random.Range(minRequiredAmount, maxRequiredAmount);
-                orderDetail.Add(type, new Vector2(0, requiredAmount));
+                orderDetail.Add(type, new Vector2Int(0, requiredAmount));
                 reward += requiredAmount * 10; //TODO: reward per item of type to design
             }
 
@@ -51,14 +51,15 @@ public class OrderManager : SerializedMonoBehaviour
     [Title("Submitting")] 
     public List<Order> orderList;
     
-    [Title("State Control")] 
+    [Title("State Control")]
     public bool isSubmitting = false;
+    public int currentDealingOrderIndex;
     public static Action onSubmissionStart;
-    public static Action onSubmissionEnd;
+    public static Action<GridItemType, int> onSubmissionCancelled;
 
     [Title("UI")] 
     public GameObject orderSubmissionArea;
-    [FormerlySerializedAs("buttonPrototype")] public Button originalOrderButton;
+    public Button originalOrderButton;
     public List<Button> orderButtons;
     
     void Start()
@@ -77,7 +78,9 @@ public class OrderManager : SerializedMonoBehaviour
         orderButtons.Add(originalOrderButton);
         for (int i = 1; i < orderConfigs.Count; i++)
         {
-            orderButtons.Add(Instantiate(originalOrderButton, originalOrderButton.transform.parent));
+            Button newButton = Instantiate(originalOrderButton, originalOrderButton.transform.parent);
+            newButton.onClick.AddListener(() => StartSubmission(i));
+            orderButtons.Add(newButton);
         }
         
         UpdateUI();
@@ -108,5 +111,44 @@ public class OrderManager : SerializedMonoBehaviour
         }
     }
     
+    public bool TrySubmit(Item item)
+    {
+        bool canSubmit;
+        Order currentOrder = orderList[currentDealingOrderIndex];
+        canSubmit = currentOrder.orderDetail.ContainsKey(item.gridItemType);
+
+        if (canSubmit) currentOrder.orderDetail[item.gridItemType] += Vector2Int.right; //item count +1
+        
+        return canSubmit;
+    }
+
+    public void StartSubmission(int orderIndex)
+    {
+        currentDealingOrderIndex = orderIndex;
+        isSubmitting = true;
+        onSubmissionStart?.Invoke();
+        
+        //set button
+        foreach (var button in orderButtons)
+        {
+            if (orderIndex != orderButtons.IndexOf(button)) button.interactable = false;
+        }
+        
+        //Show Submission Area is now set by button
+    }
+
+    public void TryFulfillOrder()
+    {
+        
+    }
+
+    public void CancelSubmission()
+    {
+        Order currentOrder = orderList[currentDealingOrderIndex];
+        foreach (var orderKvp in currentOrder.orderDetail)
+        {
+            onSubmissionCancelled?.Invoke(orderKvp.Key, orderKvp.Value.x);
+        }
+    }
     
 }

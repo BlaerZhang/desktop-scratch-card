@@ -2,11 +2,12 @@ using System;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(PhysicsDragger))]
 public class Item : MonoBehaviour
 {
-    public ItemType itemType;
+    [FormerlySerializedAs("itemType")] public GridItemType gridItemType;
     public float itemSize;
     public float itemWeight;
 

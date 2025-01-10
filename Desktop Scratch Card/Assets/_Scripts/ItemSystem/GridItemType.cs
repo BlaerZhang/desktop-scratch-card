@@ -1,4 +1,4 @@
-public enum ItemType
+public enum GridItemType
 {
     Apple = 0,
     Orange = 1,

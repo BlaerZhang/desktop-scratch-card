@@ -9,21 +9,21 @@ public class ItemManager : SerializedMonoBehaviour
 {
     public List<Item> playerItemList;
     
-    public Dictionary<ItemType, int> playerItemStats;
+    public Dictionary<GridItemType, int> playerItemStats;
     
-    [DisableInPlayMode] public Dictionary<ItemType, GameObject> itemPrefabDict;
+    [DisableInPlayMode] public Dictionary<GridItemType, GameObject> itemPrefabDict;
 
     private void CalculateItems()
     {
         // Init if not set right
         if (playerItemStats == null) 
-            playerItemStats = new Dictionary<ItemType, int>();
+            playerItemStats = new Dictionary<GridItemType, int>();
 
         // 获取所有类型
-        var itemTypes = Enum.GetValues(typeof(ItemType));
+        var itemTypes = Enum.GetValues(typeof(GridItemType));
 
         // 确保字典包含所有类型
-        foreach (ItemType type in itemTypes)
+        foreach (GridItemType type in itemTypes)
         {
             if (!playerItemStats.ContainsKey(type))
             {
@@ -32,17 +32,17 @@ public class ItemManager : SerializedMonoBehaviour
         }
 
         // 为每个类型计算数量
-        foreach (ItemType type in itemTypes)
+        foreach (GridItemType type in itemTypes)
         {
-            playerItemStats[type] = playerItemList.Count(item => item.itemType == type);
+            playerItemStats[type] = playerItemList.Count(item => item.gridItemType == type);
         }
     }
     
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Alpha1)) AddItem(ItemType.Apple);
-        if(Input.GetKeyDown(KeyCode.Alpha2)) AddItem(ItemType.Orange);
-        if (Input.GetKeyDown(KeyCode.Alpha3)) AddItem(ItemType.Apple, 3);
+        if(Input.GetKeyDown(KeyCode.Alpha1)) AddItem(GridItemType.Apple);
+        if(Input.GetKeyDown(KeyCode.Alpha2)) AddItem(GridItemType.Orange);
+        if (Input.GetKeyDown(KeyCode.Alpha3)) AddItem(GridItemType.Apple, 3);
     }
 
     /// <summary>
@@ -50,7 +50,7 @@ public class ItemManager : SerializedMonoBehaviour
     /// </summary>
     /// <param name="type"></param>
     /// <param name="quantity">default set to 1</param>
-    public void AddItem(ItemType type, int quantity = 1)
+    public void AddItem(GridItemType type, int quantity = 1)
     {
         for (int i = 0; i < quantity; i++)
         {
@@ -62,7 +62,7 @@ public class ItemManager : SerializedMonoBehaviour
         CalculateItems();
     }
     
-    private GameObject SpawnItem(ItemType type)
+    private GameObject SpawnItem(GridItemType type)
     {
         Vector2 spawnPos = new Vector2(Random.Range(-4f, 4f), 6); //TODO concise spawn area
         GameObject newItemObject = Instantiate(itemPrefabDict[type], spawnPos, Quaternion.identity);
@@ -75,12 +75,12 @@ public class ItemManager : SerializedMonoBehaviour
     /// </summary>
     /// <param name="type"></param>
     /// <param name="quantity">default set to 1</param>
-    public void RemoveItemByItemType(ItemType type, int quantity = 1)
+    public void RemoveItemByItemType(GridItemType type, int quantity = 1)
     {
         for (int i = 0; i < quantity; i++)
         {
             // 从列表开头找到第一个匹配的项
-            var itemToRemove = playerItemList.FirstOrDefault(item => item.itemType == type);
+            var itemToRemove = playerItemList.FirstOrDefault(item => item.gridItemType == type);
         
             // 如果找不到匹配的项就退出
             if (itemToRemove == null) break;
