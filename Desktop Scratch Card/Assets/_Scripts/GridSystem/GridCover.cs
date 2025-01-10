@@ -31,7 +31,7 @@ public class GridCover : MonoBehaviour
         else
         {
             //Check cluster and display
-            GridManager.onMouseOverRevealedItem?.Invoke(grid);
+            ScratchCardManager.onMouseOverRevealedItem?.Invoke(grid);
         }
     }
 
@@ -43,7 +43,7 @@ public class GridCover : MonoBehaviour
         else
         {
             //Hide cluster
-            GridManager.onMouseExitRevealedItem?.Invoke();
+            ScratchCardManager.onMouseExitRevealedItem?.Invoke();
         }
     }
 
@@ -52,7 +52,7 @@ public class GridCover : MonoBehaviour
         // if (IconManager.isIconMoving) return;
         if (isRevealing) return;
 
-        if (isRevealed) GridManager.onMouseDownRevealedItem?.Invoke(grid);
+        if (isRevealed) ScratchCardManager.onMouseDownRevealedItem?.Invoke(grid);
         else RevealGrid();
     }
 
@@ -67,8 +67,8 @@ public class GridCover : MonoBehaviour
         {
             isRevealed = true;
             isRevealing = false;
-            GridManager.onCoverRevealStateChanged?.Invoke(grid, true);
-            GridManager.onCoverRevealed?.Invoke(grid);
+            ScratchCardManager.onCoverRevealStateChanged?.Invoke(grid, true);
+            ScratchCardManager.onCoverRevealed?.Invoke(grid);
         }));
     }
 

@@ -12,12 +12,12 @@ namespace _Scripts.ItemCountGenerator
 
         private void OnEnable()
         {
-            GridManager.onCoverRevealed += Show;
+            ScratchCardManager.onCoverRevealed += Show;
         }
 
         private void OnDisable()
         {
-            GridManager.onCoverRevealed -= Show;
+            ScratchCardManager.onCoverRevealed -= Show;
         }
 
         private void Show(Vector2Int revealedGrid)

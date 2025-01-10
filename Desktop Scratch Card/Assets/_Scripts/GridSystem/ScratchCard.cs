@@ -5,11 +5,17 @@ namespace _Scripts.GridSystem
 {
     public class ScratchCard : MonoBehaviour
     {
+        private GridData _gridData = new GridData();
         private List<Vector2Int> _rewardsList = new List<Vector2Int>();
 
-        public void SelfDestroy()
+        public void Initialize(int rows, int columns)
         {
-            Destroy(gameObject);
+            _gridData.items = new GridItem[rows, columns];
+        }
+
+        public void SetCardItemMatrix(int row, int column, GridItem gridItem)
+        {
+            _gridData.items[row, column] = gridItem;
         }
 
         public void AddReward(GridItemType itemType, int count)
@@ -20,6 +26,11 @@ namespace _Scripts.GridSystem
         public List<Vector2Int> GetRewardList()
         {
             return _rewardsList;
+        }
+
+        public void SelfDestroy()
+        {
+            Destroy(gameObject);
         }
     }
 }

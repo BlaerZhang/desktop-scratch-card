@@ -16,12 +16,12 @@ public class ItemManager : SerializedMonoBehaviour
 
     private void OnEnable()
     {
-        GridManager.onScratchCardSubmitted += AddItems;
+        ScratchCardManager.onScratchCardSubmitted += AddItems;
     }
 
     private void OnDisable()
     {
-        GridManager.onScratchCardSubmitted -= AddItems;
+        ScratchCardManager.onScratchCardSubmitted -= AddItems;
     }
 
     private void CalculateItems()
@@ -56,8 +56,9 @@ public class ItemManager : SerializedMonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha3)) AddItem(GridItemType.Grape, 3);
     }
 
-    private void AddItems(List<Vector2Int> items)
+    private void AddItems(ScratchCard card)
     {
+        var items = card.GetRewardList();
         foreach (var item in items)
         {
             AddItem((GridItemType)item.x, item.y);
