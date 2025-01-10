@@ -55,7 +55,7 @@ public class OrderManager : SerializedMonoBehaviour
     public bool isSubmitting = false;
     public int currentDealingOrderIndex;
     public static Action onSubmissionStart;
-    public static Action<GridItemType, int> onSubmissionCancelled;
+    public static Action<List<Vector2Int>> onSubmissionCancelled;
 
     [Title("UI")] 
     public GameObject orderSubmissionArea;
@@ -76,10 +76,13 @@ public class OrderManager : SerializedMonoBehaviour
     private void InitUI()
     {
         orderButtons.Add(originalOrderButton);
-        for (int i = 1; i < orderConfigs.Count; i++)
+        originalOrderButton.onClick.AddListener(() => StartSubmission(0));
+        
+        for (int i = 1; i < orderList.Count; i++)
         {
             Button newButton = Instantiate(originalOrderButton, originalOrderButton.transform.parent);
-            newButton.onClick.AddListener(() => StartSubmission(i));
+            var index = i;
+            newButton.onClick.AddListener(() => StartSubmission(index));
             orderButtons.Add(newButton);
         }
         
@@ -90,9 +93,15 @@ public class OrderManager : SerializedMonoBehaviour
     {
         foreach (var config in orderConfigs)
         {
-            orderList.Add(new Order(config.configIndex, Random.Range(config.minTypeCount, config.maxTypeCount),
-                config.minRequiredAmount, config.maxRequiredAmount));
+            orderList.Add(GenerateOrderFromConfig(config));
         }
+    }
+
+    private Order GenerateOrderFromConfig(OrderGenerationConfig config)
+    {
+        Order newOrder = new Order(config.configIndex, Random.Range(config.minTypeCount, config.maxTypeCount),
+            config.minRequiredAmount, config.maxRequiredAmount);
+        return newOrder;
     }
 
     private void UpdateUI()
@@ -115,9 +124,9 @@ public class OrderManager : SerializedMonoBehaviour
     {
         bool canSubmit;
         Order currentOrder = orderList[currentDealingOrderIndex];
-        canSubmit = currentOrder.orderDetail.ContainsKey(item.gridItemType);
+        canSubmit = currentOrder.orderDetail.ContainsKey(item.itemType);
 
-        if (canSubmit) currentOrder.orderDetail[item.gridItemType] += Vector2Int.right; //item count +1
+        if (canSubmit) currentOrder.orderDetail[item.itemType] += Vector2Int.right; //item count +1
         
         return canSubmit;
     }
@@ -139,16 +148,36 @@ public class OrderManager : SerializedMonoBehaviour
 
     public void TryFulfillOrder()
     {
+        bool canFulfill = true;
+        Order currentOrder = orderList[currentDealingOrderIndex];
+        foreach (var orderKvp in currentOrder.orderDetail)
+        {
+            if (orderKvp.Value.x < orderKvp.Value.y) canFulfill = false;
+        }
+
+        if (canFulfill)
+        {
+            //TODO: Fulfill & Pay Money!!!
+            orderList[currentDealingOrderIndex] = GenerateOrderFromConfig(orderConfigs[currentDealingOrderIndex]);
+            UpdateUI();
+        }
         
+        else CancelSubmission();
     }
 
     public void CancelSubmission()
     {
         Order currentOrder = orderList[currentDealingOrderIndex];
+        List<Vector2Int> returningItems = new List<Vector2Int>();
         foreach (var orderKvp in currentOrder.orderDetail)
         {
-            onSubmissionCancelled?.Invoke(orderKvp.Key, orderKvp.Value.x);
+            returningItems.Add(new Vector2Int((int)orderKvp.Key, orderKvp.Value.x));
         }
+        
+        onSubmissionCancelled?.Invoke(returningItems);
+        
+        //Reset Buttons
+        foreach (var button in orderButtons) button.interactable = true;
     }
     
 }

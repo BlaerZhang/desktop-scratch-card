@@ -1,13 +1,13 @@
 using System;
+using _Scripts.GridSystem;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
-using UnityEngine.Serialization;
 
 [RequireComponent(typeof(PhysicsDragger))]
 public class Item : MonoBehaviour
 {
-    [FormerlySerializedAs("itemType")] public GridItemType gridItemType;
+    public GridItemType itemType;
     public float itemSize;
     public float itemWeight;
 

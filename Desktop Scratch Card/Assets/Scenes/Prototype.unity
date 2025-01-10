@@ -260,18 +260,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 348711066}
-        m_TargetAssemblyTypeName: OrderManager, Assembly-CSharp
-        m_MethodName: StartSubmission
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
       - m_Target: {fileID: 856654758}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
@@ -540,6 +528,7 @@ MonoBehaviour:
     maxRequiredAmount: 1
   orderList: []
   isSubmitting: 0
+  currentDealingOrderIndex: 0
   orderSubmissionArea: {fileID: 0}
   originalOrderButton: {fileID: 38322605}
   orderButtons: []
@@ -2282,7 +2271,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 1
+      Data: 2
     - Name: $v
       Entry: 10
       Data: 1

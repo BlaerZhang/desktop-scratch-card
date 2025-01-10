@@ -1,0 +1,314 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca1a61eeff7de446aba2ecc7298738fb, type: 3}
+  m_Name: GridItemSO
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 803463441676525100, guid: 39cf567d9524a844ea6666726e0c3ba5, type: 3}
+    - {fileID: 7525888635355953523, guid: edcb2fe5798963d44beb78e9d03db1fe, type: 3}
+    - {fileID: 23484427262454850, guid: ba316b8920a09994db19a314de10f6cd, type: 3}
+    - {fileID: 4369902993844554849, guid: 540a46d5dab658d46b17564fea25664f, type: 3}
+    - {fileID: -1320900453516527366, guid: 30da6f02f179c2d4c9825c5369d5e034, type: 3}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: itemPool
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[_Scripts.GridSystem.GridItemType,
+        Assembly-CSharp],[_Scripts.GridSystem.GridTypeData, Assembly-CSharp]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[_Scripts.GridSystem.GridItemType,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 5
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1
+    - Name: $v
+      Entry: 7
+      Data: _Scripts.GridSystem.GridTypeData, Assembly-CSharp
+    - Name: itemLevelData
+      Entry: 7
+      Data: 2|System.Collections.Generic.List`1[[_Scripts.GridSystem.GridItemData,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: _Scripts.GridSystem.GridItemData, Assembly-CSharp
+    - Name: level
+      Entry: 3
+      Data: 0
+    - Name: id
+      Entry: 1
+      Data: ck_0
+    - Name: image
+      Entry: 10
+      Data: 0
+    - Name: prize
+      Entry: 3
+      Data: 0
+    - Name: probability
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: typeProbability
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 2
+    - Name: $v
+      Entry: 7
+      Data: _Scripts.GridSystem.GridTypeData, Assembly-CSharp
+    - Name: itemLevelData
+      Entry: 7
+      Data: 3|System.Collections.Generic.List`1[[_Scripts.GridSystem.GridItemData,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: _Scripts.GridSystem.GridItemData, Assembly-CSharp
+    - Name: level
+      Entry: 3
+      Data: 0
+    - Name: id
+      Entry: 1
+      Data: pc_0
+    - Name: image
+      Entry: 10
+      Data: 1
+    - Name: prize
+      Entry: 3
+      Data: 0
+    - Name: probability
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: typeProbability
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 0
+    - Name: $v
+      Entry: 7
+      Data: _Scripts.GridSystem.GridTypeData, Assembly-CSharp
+    - Name: itemLevelData
+      Entry: 7
+      Data: 4|System.Collections.Generic.List`1[[_Scripts.GridSystem.GridItemData,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: _Scripts.GridSystem.GridItemData, Assembly-CSharp
+    - Name: level
+      Entry: 3
+      Data: 0
+    - Name: id
+      Entry: 1
+      Data: rb_0
+    - Name: image
+      Entry: 10
+      Data: 2
+    - Name: prize
+      Entry: 3
+      Data: 0
+    - Name: probability
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: typeProbability
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 3
+    - Name: $v
+      Entry: 7
+      Data: _Scripts.GridSystem.GridTypeData, Assembly-CSharp
+    - Name: itemLevelData
+      Entry: 7
+      Data: 5|System.Collections.Generic.List`1[[_Scripts.GridSystem.GridItemData,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: _Scripts.GridSystem.GridItemData, Assembly-CSharp
+    - Name: level
+      Entry: 3
+      Data: 0
+    - Name: id
+      Entry: 1
+      Data: pz_0
+    - Name: image
+      Entry: 10
+      Data: 3
+    - Name: prize
+      Entry: 3
+      Data: 0
+    - Name: probability
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: typeProbability
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 4
+    - Name: $v
+      Entry: 7
+      Data: _Scripts.GridSystem.GridTypeData, Assembly-CSharp
+    - Name: itemLevelData
+      Entry: 7
+      Data: 6|System.Collections.Generic.List`1[[_Scripts.GridSystem.GridItemData,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: _Scripts.GridSystem.GridItemData, Assembly-CSharp
+    - Name: level
+      Entry: 3
+      Data: 0
+    - Name: id
+      Entry: 1
+      Data: mt_0
+    - Name: image
+      Entry: 10
+      Data: 4
+    - Name: prize
+      Entry: 3
+      Data: 0
+    - Name: probability
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: typeProbability
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 

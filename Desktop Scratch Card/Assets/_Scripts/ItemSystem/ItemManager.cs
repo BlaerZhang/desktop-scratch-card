@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using _Scripts.GridSystem;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -12,6 +13,18 @@ public class ItemManager : SerializedMonoBehaviour
     public Dictionary<GridItemType, int> playerItemStats;
     
     [DisableInPlayMode] public Dictionary<GridItemType, GameObject> itemPrefabDict;
+
+    private void OnEnable()
+    {
+        GridManager.onScratchCardSubmitted += AddItems;
+        OrderManager.onSubmissionCancelled += AddItems;
+    }
+
+    private void OnDisable()
+    {
+        GridManager.onScratchCardSubmitted -= AddItems;
+        OrderManager.onSubmissionCancelled -= AddItems;
+    }
 
     private void CalculateItems()
     {
@@ -34,15 +47,23 @@ public class ItemManager : SerializedMonoBehaviour
         // 为每个类型计算数量
         foreach (GridItemType type in itemTypes)
         {
-            playerItemStats[type] = playerItemList.Count(item => item.gridItemType == type);
+            playerItemStats[type] = playerItemList.Count(item => item.itemType == type);
         }
     }
     
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.Alpha1)) AddItem(GridItemType.Apple);
-        if(Input.GetKeyDown(KeyCode.Alpha2)) AddItem(GridItemType.Orange);
-        if (Input.GetKeyDown(KeyCode.Alpha3)) AddItem(GridItemType.Apple, 3);
+        if(Input.GetKeyDown(KeyCode.Alpha2)) AddItem(GridItemType.Banana);
+        if (Input.GetKeyDown(KeyCode.Alpha3)) AddItem(GridItemType.Grape, 3);
+    }
+
+    private void AddItems(List<Vector2Int> items)
+    {
+        foreach (var item in items)
+        {
+            AddItem((GridItemType)item.x, item.y);
+        }
     }
 
     /// <summary>
@@ -80,7 +101,7 @@ public class ItemManager : SerializedMonoBehaviour
         for (int i = 0; i < quantity; i++)
         {
             // 从列表开头找到第一个匹配的项
-            var itemToRemove = playerItemList.FirstOrDefault(item => item.gridItemType == type);
+            var itemToRemove = playerItemList.FirstOrDefault(item => item.itemType == type);
         
             // 如果找不到匹配的项就退出
             if (itemToRemove == null) break;
