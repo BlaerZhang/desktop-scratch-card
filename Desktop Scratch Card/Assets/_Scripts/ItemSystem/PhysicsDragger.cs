@@ -11,7 +11,7 @@ public class PhysicsDragger : MonoBehaviour
     private Camera mainCamera;
     private Vector2 targetPosition;
     private Vector2 grabOffset;    // 抓取点相对物体中心的偏移
-    private bool isDragging = false;
+    public bool isDragging = false;
 
     private void Awake()
     {
@@ -50,7 +50,7 @@ public class PhysicsDragger : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!isDragging) return;
+        if (!isDragging || rb == null) return;
 
         // 计算力的作用点（在世界空间中）
         float angle = rb.rotation * Mathf.Deg2Rad;  // 转换为弧度

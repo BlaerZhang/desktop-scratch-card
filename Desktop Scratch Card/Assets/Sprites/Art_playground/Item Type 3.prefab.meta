@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Desktop Scratch Card/Assets/Sprites/Art_playground/Item Type 3.prefab.meta
 guid: 85bcef91e4a7dfb4ca5497013ae96aaa
+========
+guid: b4faf1a2623b34659aa6ee7f00d0d5ed
+>>>>>>>> order-system:Desktop Scratch Card/Assets/Prefabs/Canvas.prefab.meta
 PrefabImporter:
   externalObjects: {}
   userData: 

@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Desktop Scratch Card/Assets/Sprites/openmoji-color-palette.svg.meta
 guid: f319d9e6d6fc1374cb178a42b578229c
 DefaultImporter:
+========
+guid: 717bd54e100d24a7683cd12d336efaef
+PrefabImporter:
+>>>>>>>> order-system:Desktop Scratch Card/Assets/Prefabs/Item Count Text.prefab.meta
   externalObjects: {}
   userData: 
   assetBundleName: 

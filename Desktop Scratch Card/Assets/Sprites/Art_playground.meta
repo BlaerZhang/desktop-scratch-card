@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Desktop Scratch Card/Assets/Sprites/Art_playground.meta
 guid: 656b7427a7edb014699373f1c294d222
+========
+guid: 8c6608a2a336bc342a8da5256b3cd18b
+>>>>>>>> order-system:Desktop Scratch Card/Assets/Plugins/Akassets/SmoothGridLayout/Documentation.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

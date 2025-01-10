@@ -1,10 +1,19 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Desktop Scratch Card/Assets/Sprites/OpenEmoji/Fruit/coconut.png.meta
 guid: 99a2b583d32009b47a7beaae56ac7134
 TextureImporter:
   internalIDToNameTable:
   - first:
       213: 4097144792221710411
     second: coconut_0
+========
+guid: 7fec8d21b63804902af8c8f4168e85d0
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7482667652216324306
+    second: Square
+>>>>>>>> order-system:Desktop Scratch Card/Assets/Resources/DefaultAssets/Textures/SquareWithBorder.png.meta
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,17 +55,22 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
+<<<<<<<< HEAD:Desktop Scratch Card/Assets/Sprites/OpenEmoji/Fruit/coconut.png.meta
   spritePixelsToUnits: 618
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+========
+  spritePixelsToUnits: 256
+  spriteBorder: {x: 4, y: 4, z: 4, w: 4}
+>>>>>>>> order-system:Desktop Scratch Card/Assets/Resources/DefaultAssets/Textures/SquareWithBorder.png.meta
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
-  spriteTessellationDetail: -1
+  spriteTessellationDetail: 0
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
@@ -93,13 +107,41 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+<<<<<<<< HEAD:Desktop Scratch Card/Assets/Sprites/OpenEmoji/Fruit/coconut.png.meta
     ignorePlatformSupport: 0
+========
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+>>>>>>>> order-system:Desktop Scratch Card/Assets/Resources/DefaultAssets/Textures/SquareWithBorder.png.meta
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
+<<<<<<<< HEAD:Desktop Scratch Card/Assets/Sprites/OpenEmoji/Fruit/coconut.png.meta
       name: coconut_0
       rect:
         serializedVersion: 2
@@ -117,13 +159,39 @@ TextureImporter:
       bones: []
       spriteID: b4877bd1b7bfbd830800000000000000
       internalID: 4097144792221710411
+========
+      name: Square
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d009a6b596c7d760800000000000000
+      internalID: 7482667652216324306
+>>>>>>>> order-system:Desktop Scratch Card/Assets/Resources/DefaultAssets/Textures/SquareWithBorder.png.meta
       vertices: []
       indices: 
       edges: []
       weights: []
     outline: []
+<<<<<<<< HEAD:Desktop Scratch Card/Assets/Sprites/OpenEmoji/Fruit/coconut.png.meta
     customData: 
     physicsShape: []
+========
+    physicsShape:
+    - - {x: -128, y: 128}
+      - {x: -128, y: -128}
+      - {x: 128, y: -128}
+      - {x: 128, y: 128}
+>>>>>>>> order-system:Desktop Scratch Card/Assets/Resources/DefaultAssets/Textures/SquareWithBorder.png.meta
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
@@ -132,11 +200,17 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+<<<<<<<< HEAD:Desktop Scratch Card/Assets/Sprites/OpenEmoji/Fruit/coconut.png.meta
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
       coconut_0: 4097144792221710411
   mipmapLimitGroupName: 
+========
+    nameFileIdTable:
+      Square: 7482667652216324306
+  spritePackingTag: 
+>>>>>>>> order-system:Desktop Scratch Card/Assets/Resources/DefaultAssets/Textures/SquareWithBorder.png.meta
   pSDRemoveMatte: 0
   userData: 
   assetBundleName: 

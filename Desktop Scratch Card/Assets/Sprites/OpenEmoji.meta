@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Desktop Scratch Card/Assets/Sprites/OpenEmoji.meta
 guid: 651e3e627804c554887d7dc6c97823e7
+========
+guid: 85e833dd5a9004432ac1220305eca3fb
+>>>>>>>> order-system:Desktop Scratch Card/Assets/_Scripts/GridSystem.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
