@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Desktop Scratch Card/Assets/Scenes/Test_art.unity.meta
 guid: 914bed0b0053ba043ab7f3bf1f51a2bc
+========
+guid: 2c1ed0d03b2a64aaa8e1c5f1f236a44e
+>>>>>>>> order-system:Desktop Scratch Card/Assets/Scenes/ScratchCard.unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

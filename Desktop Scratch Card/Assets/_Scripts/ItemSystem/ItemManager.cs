@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using _Scripts.GridSystem;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -9,21 +10,33 @@ public class ItemManager : SerializedMonoBehaviour
 {
     public List<Item> playerItemList;
     
-    public Dictionary<ItemType, int> playerItemStats;
+    public Dictionary<GridItemType, int> playerItemStats;
     
-    [DisableInPlayMode] public Dictionary<ItemType, GameObject> itemPrefabDict;
+    [DisableInPlayMode] public Dictionary<GridItemType, GameObject> itemPrefabDict;
+
+    private void OnEnable()
+    {
+        GridManager.onScratchCardSubmitted += AddItems;
+        OrderManager.onSubmissionCancelled += AddItems;
+    }
+
+    private void OnDisable()
+    {
+        GridManager.onScratchCardSubmitted -= AddItems;
+        OrderManager.onSubmissionCancelled -= AddItems;
+    }
 
     private void CalculateItems()
     {
         // Init if not set right
         if (playerItemStats == null) 
-            playerItemStats = new Dictionary<ItemType, int>();
+            playerItemStats = new Dictionary<GridItemType, int>();
 
         // 获取所有类型
-        var itemTypes = Enum.GetValues(typeof(ItemType));
+        var itemTypes = Enum.GetValues(typeof(GridItemType));
 
         // 确保字典包含所有类型
-        foreach (ItemType type in itemTypes)
+        foreach (GridItemType type in itemTypes)
         {
             if (!playerItemStats.ContainsKey(type))
             {
@@ -32,7 +45,7 @@ public class ItemManager : SerializedMonoBehaviour
         }
 
         // 为每个类型计算数量
-        foreach (ItemType type in itemTypes)
+        foreach (GridItemType type in itemTypes)
         {
             playerItemStats[type] = playerItemList.Count(item => item.itemType == type);
         }
@@ -40,9 +53,17 @@ public class ItemManager : SerializedMonoBehaviour
     
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Alpha1)) AddItem(ItemType.type1);
-        if(Input.GetKeyDown(KeyCode.Alpha2)) AddItem(ItemType.type2);
-        if (Input.GetKeyDown(KeyCode.Alpha3)) AddItem(ItemType.type1, 3);
+        if(Input.GetKeyDown(KeyCode.Alpha1)) AddItem(GridItemType.Apple);
+        if(Input.GetKeyDown(KeyCode.Alpha2)) AddItem(GridItemType.Banana);
+        if (Input.GetKeyDown(KeyCode.Alpha3)) AddItem(GridItemType.Grape, 3);
+    }
+
+    private void AddItems(List<Vector2Int> items)
+    {
+        foreach (var item in items)
+        {
+            AddItem((GridItemType)item.x, item.y);
+        }
     }
 
     /// <summary>
@@ -50,7 +71,7 @@ public class ItemManager : SerializedMonoBehaviour
     /// </summary>
     /// <param name="type"></param>
     /// <param name="quantity">default set to 1</param>
-    public void AddItem(ItemType type, int quantity = 1)
+    public void AddItem(GridItemType type, int quantity = 1)
     {
         for (int i = 0; i < quantity; i++)
         {
@@ -62,7 +83,7 @@ public class ItemManager : SerializedMonoBehaviour
         CalculateItems();
     }
     
-    private GameObject SpawnItem(ItemType type)
+    private GameObject SpawnItem(GridItemType type)
     {
         Vector2 spawnPos = new Vector2(Random.Range(-4f, 4f), 6); //TODO concise spawn area
         GameObject newItemObject = Instantiate(itemPrefabDict[type], spawnPos, Quaternion.identity);
@@ -75,7 +96,7 @@ public class ItemManager : SerializedMonoBehaviour
     /// </summary>
     /// <param name="type"></param>
     /// <param name="quantity">default set to 1</param>
-    public void RemoveItemByItemType(ItemType type, int quantity = 1)
+    public void RemoveItemByItemType(GridItemType type, int quantity = 1)
     {
         for (int i = 0; i < quantity; i++)
         {

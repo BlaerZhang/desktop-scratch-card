@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Desktop Scratch Card/Assets/Shaders/SSU Mat 1.mat.meta
 guid: 885702b7c90d9f5499e066051de9b15e
+========
+guid: eded18eae2e4b4a1baec98b7a264fc9d
+>>>>>>>> order-system:Desktop Scratch Card/Assets/_Scripts/GridSystem/GridItemSO.asset.meta
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 2100000

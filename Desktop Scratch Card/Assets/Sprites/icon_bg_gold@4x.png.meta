@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      icon_bg_gold@4x_0: 3277253848688221751
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
