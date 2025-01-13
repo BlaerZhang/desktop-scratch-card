@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace _Scripts.GridSystem
+namespace _Scripts.ScratchCardSystem.GridSystem
 {
     [Serializable]
     public struct GridItemData

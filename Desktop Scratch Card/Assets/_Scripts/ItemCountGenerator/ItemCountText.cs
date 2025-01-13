@@ -1,5 +1,5 @@
 using System;
-using _Scripts.GridSystem;
+using _Scripts.ScratchCardSystem;
 using UnityEngine;
 using DG.Tweening;
 using TMPro;
@@ -12,12 +12,12 @@ namespace _Scripts.ItemCountGenerator
 
         private void OnEnable()
         {
-            GridManager.onCoverRevealed += Show;
+            ScratchCardManager.onCoverRevealed += Show;
         }
 
         private void OnDisable()
         {
-            GridManager.onCoverRevealed -= Show;
+            ScratchCardManager.onCoverRevealed -= Show;
         }
 
         private void Show(Vector2Int revealedGrid)

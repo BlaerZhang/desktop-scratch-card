@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using _Scripts.GridSystem;
+using _Scripts.ScratchCardSystem;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
