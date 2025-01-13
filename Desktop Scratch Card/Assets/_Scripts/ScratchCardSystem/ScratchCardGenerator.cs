@@ -9,6 +9,7 @@ namespace _Scripts.ScratchCardSystem
     public class ScratchCardGenerator : MonoBehaviour
     {
         public TMP_Text itemCountTextPrefab;
+        public Sprite gridCoverSprite;
 
         private GridItemSO _gridItemSo;
 
@@ -72,9 +73,9 @@ namespace _Scripts.ScratchCardSystem
                 }
             };
             var spriteRenderer = cover.AddComponent<SpriteRenderer>();
-            spriteRenderer.sprite = Resources.Load<Sprite>("DefaultAssets/Textures/Square");
+            // spriteRenderer.sprite = Resources.Load<Sprite>("DefaultAssets/Textures/Square");
             spriteRenderer.color = Color.gray;
-
+            spriteRenderer.sprite = gridCoverSprite;
             spriteRenderer.sortingOrder = 999;
 
             var gridCover = cover.AddComponent<GridCover>();

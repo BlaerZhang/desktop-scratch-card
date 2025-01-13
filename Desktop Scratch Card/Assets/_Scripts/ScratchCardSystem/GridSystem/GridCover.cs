@@ -10,60 +10,81 @@ namespace _Scripts.ScratchCardSystem.GridSystem
         private BoxCollider2D _boxCollider2D;
         private bool isRevealed = false;
         private bool isRevealing = false;
-
-        // private SpriteRenderer _mergerBG;
-
+        private bool isMouseOver = false;  // 新增：追踪鼠标是否在当前格子上
+        
         public Vector2Int grid;
+        
+        private static bool isMouseDown = false;
 
         void Start()
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
-            _boxCollider2D = GetComponent<BoxCollider2D>();
             _spriteRenderer.sortingOrder = 100;
-            _boxCollider2D.isTrigger = true;
 
-            // _mergerBG = transform.Find("MergerBG").GetComponent<SpriteRenderer>();
+            _boxCollider2D = GetComponent<BoxCollider2D>();
+            _boxCollider2D.isTrigger = false;
+        }
+
+        void Update()
+        {
+            // 更新鼠标按下状态
+            if (Input.GetMouseButtonDown(0))
+            {
+                isMouseDown = true;
+                // 如果鼠标在当前格子上且按下左键，立即reveal
+                if (isMouseOver && !isRevealed && !isRevealing)
+                {
+                    RevealGrid();
+                }
+            }
+            if (Input.GetMouseButtonUp(0))
+            {
+                isMouseDown = false;
+            }
         }
 
         private void OnMouseEnter()
         {
+            isMouseOver = true;
+            
             if (isRevealing) return;
 
-            if (!isRevealed) _spriteRenderer.DOColor(Color.white, 0.1f);
+            if (!isRevealed)
+            {
+                if (isMouseDown)
+                {
+                    RevealGrid();
+                }
+                else
+                {
+                    _spriteRenderer.DOColor(Color.white, 0.1f);
+                }
+            }
             else
             {
-                //Check cluster and display
                 ScratchCardManager.onMouseOverRevealedItem?.Invoke(grid);
             }
         }
 
         private void OnMouseExit()
         {
+            isMouseOver = false;
+            
             if (isRevealing) return;
 
-            if (!isRevealed) _spriteRenderer.DOColor(Color.gray, 0.1f);
+            if (!isRevealed) 
+            {
+                _spriteRenderer.DOColor(Color.gray, 0.1f);
+            }
             else
             {
-                //Hide cluster
                 ScratchCardManager.onMouseExitRevealedItem?.Invoke();
             }
         }
 
-        private void OnMouseDown()
-        {
-            // if (IconManager.isIconMoving) return;
-            if (isRevealing) return;
-
-            if (isRevealed) ScratchCardManager.onMouseDownRevealedItem?.Invoke(grid);
-            else RevealGrid();
-        }
-
         private void RevealGrid()
         {
-            // print(grid + "revealed");
             isRevealing = true;
-
-            //Generate Icon
 
             _spriteRenderer.DOFade(0, 0.1f).OnComplete((() =>
             {
@@ -73,12 +94,5 @@ namespace _Scripts.ScratchCardSystem.GridSystem
                 ScratchCardManager.onCoverRevealed?.Invoke(grid);
             }));
         }
-
-        // public void ResetCover()
-        // {
-        //     isRevealed = false;
-        //     _spriteRenderer.DOFade(1, 0);
-        //     _spriteRenderer.DOColor(Color.gray, 0);
-        // }
     }
 }
