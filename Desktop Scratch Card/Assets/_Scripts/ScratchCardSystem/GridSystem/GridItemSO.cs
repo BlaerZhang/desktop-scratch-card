@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace _Scripts.GridSystem
+namespace _Scripts.ScratchCardSystem.GridSystem
 {
     [CreateAssetMenu(fileName = "GridItemSO", menuName = "Scriptable Objects/GridItemSO")]
     public class GridItemSO : SerializedScriptableObject

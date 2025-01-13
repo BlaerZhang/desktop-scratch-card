@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace _Scripts.GridSystem
+namespace _Scripts.ScratchCardSystem.GridSystem
 {
     public class ClusterDetector
     {

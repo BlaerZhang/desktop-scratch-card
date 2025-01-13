@@ -1,4 +1,3 @@
-using _Scripts.GridSystem;
 using UnityEngine;
 using DG.Tweening;
 

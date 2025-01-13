@@ -1,5 +1,5 @@
 using System;
-using _Scripts.GridSystem;
+using _Scripts.ScratchCardSystem;
 using UnityEngine;
 using DG.Tweening;
 using TMPro;

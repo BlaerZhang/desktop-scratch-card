@@ -1,10 +1,10 @@
-using System.Collections.Generic;
 using _Scripts.ItemCountGenerator;
+using _Scripts.ScratchCardSystem.GridSystem;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
-namespace _Scripts.GridSystem
+namespace _Scripts.ScratchCardSystem
 {
     public class ScratchCardGenerator : MonoBehaviour
     {

@@ -1,12 +1,12 @@
 using System;
-using System.Collections.Generic;
 using _Scripts.ItemCountGenerator;
-using TMPro;
-// using _Scripts.Merger;
+using _Scripts.ScratchCardSystem.GridSystem;
 using UnityEngine;
-using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
-namespace _Scripts.GridSystem
+// using _Scripts.Merger;
+
+namespace _Scripts.ScratchCardSystem
 {
     public class ScratchCardManager : MonoBehaviour
     {
@@ -18,7 +18,7 @@ namespace _Scripts.GridSystem
 
         public static Action<ScratchCard> onScratchCardSubmitted;
 
-        [Header("Grid Master")]
+        [Header("Scratch Card Master")]
         public GridItemSO gridItemSo;
         public ScratchCardGenerator scratchCardGenerator;
         public GridItemCountGenerator gridItemCountGenerator;
@@ -27,8 +27,11 @@ namespace _Scripts.GridSystem
         public Vector2Int gridDimension = new Vector2Int(3, 3);
         public Vector2 gridGapLength = Vector2.zero;
         public Vector2 generateStartPoint = Vector2.zero;
-        
-        // private GridData _gridData;
+
+        [Header("Spawn Time")]
+        public float meanSpawnTime = 15f;
+        private float nextSpawnTime;         // 下次生成时间
+        private System.Random random;
 
         private void OnEnable()
         {
@@ -52,16 +55,52 @@ namespace _Scripts.GridSystem
 
         // TODO: trigger the generator of the scratch card
 
+        private void Awake()
+        {
+            random = new System.Random();
+            CalculateNextSpawnTime();
+        }
+
         void Start()
         {
-            GenerateScratchCard();
+            // GenerateScratchCard();
             // _gridItemMerger = new GridItemMerger(gridItemSo, _gridData);
         }
 
         private void Update()
         {
+            // 检查是否到达生成时间且未超过最大数量
+            if (Time.time >= nextSpawnTime & _currentScratchCard == null)
+            {
+                GenerateScratchCard();
+                CalculateNextSpawnTime();
+            }
+
             if (Input.GetKeyDown(KeyCode.Space)) GenerateScratchCard();
             if (Input.GetKeyDown(KeyCode.Return)) SubmitScratchCard();
+        }
+
+        private void CalculateNextSpawnTime()
+        {
+            // 使用指数分布（泊松过程的时间间隔）
+            float lambda = 1f / meanSpawnTime;
+            float randomValue = (float)(-Math.Log(1f - (float)random.NextDouble()) / lambda);
+
+            // 将当前时间加上随机间隔
+            nextSpawnTime = Time.time + randomValue;
+        }
+
+        private void GenerateScratchCard()
+        {
+            print("in generating");
+            if (_currentScratchCard != null) return;
+            print("card is null");
+
+            // TODO: give card
+            var itemCounts = gridItemCountGenerator.GenerateGridItemCount(gridDimension);
+
+            scratchCardGenerator.Initialize(gridDimension, gridGapLength, generateStartPoint, gridItemSo, itemCounts);
+            _currentScratchCard = scratchCardGenerator.GenerateScratchCard();
         }
 
         private ScratchCard _currentScratchCard;
@@ -81,17 +120,8 @@ namespace _Scripts.GridSystem
                 // generate items
                 onScratchCardSubmitted?.Invoke(_currentScratchCard);
             }
-        }
 
-        private void GenerateScratchCard()
-        {
-            if (_currentScratchCard != null) return;
-            
-            // TODO: give card
-            var itemCounts = gridItemCountGenerator.GenerateGridItemCount(gridDimension);
-
-            scratchCardGenerator.Initialize(gridDimension, gridGapLength, generateStartPoint, gridItemSo, itemCounts);
-            _currentScratchCard = scratchCardGenerator.GenerateScratchCard();
+            CalculateNextSpawnTime();
         }
 
         private void OnCoverRevealed(Vector2Int revealedGrid)
@@ -108,11 +138,6 @@ namespace _Scripts.GridSystem
         {
             // 网格生成完成后的逻辑
         }
-
-        // private void MoveIcons()
-        // {
-        //     iconMover.MoveIcons();
-        // }
 
         private void OnGridRevealStateChanged(Vector2Int revealedGrid, bool isRevealed)
         {

@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using _Scripts.GridSystem;
+using _Scripts.ScratchCardSystem;
 using DG.Tweening;
 using UnityEngine;
 
@@ -8,8 +8,8 @@ namespace _Scripts.PlayerUpgrades
 {
     public class UpgradeManager : MonoBehaviour
     {
-        private GameObject _scratchCardUpgradesHolder = new GameObject("Active Scratch Card Upgrades");
-        private GameObject _abilityUpgradesHolder = new GameObject("Active Ability Upgrades");
+        private GameObject _scratchCardUpgradesHolder;
+        private GameObject _abilityUpgradesHolder;
 
         // 存储所有可用的升级
         public List<AbilityUpgrade> abilityUpgradesPool = new List<AbilityUpgrade>();
@@ -17,6 +17,12 @@ namespace _Scripts.PlayerUpgrades
         // 存储已激活的升级
         private Dictionary<string, ScratchCardUpgrade> _activeCardUpgrades = new Dictionary<string, ScratchCardUpgrade>();
         private Dictionary<string, AbilityUpgrade> _activeAbilityUpgrades = new Dictionary<string, AbilityUpgrade>();
+
+        private void Awake()
+        {
+            _scratchCardUpgradesHolder = new GameObject("Active Scratch Card Upgrades");
+            _abilityUpgradesHolder = new GameObject("Active Ability Upgrades");
+        }
 
         private void OnEnable()
         {

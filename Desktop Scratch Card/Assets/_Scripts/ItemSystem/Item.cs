@@ -1,5 +1,5 @@
 using System;
-using _Scripts.GridSystem;
+using _Scripts.ScratchCardSystem.GridSystem;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.PlayerLoop;

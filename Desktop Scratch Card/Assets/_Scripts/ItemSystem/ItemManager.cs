@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using _Scripts.GridSystem;
+using _Scripts.ScratchCardSystem;
+using _Scripts.ScratchCardSystem.GridSystem;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Random = UnityEngine.Random;

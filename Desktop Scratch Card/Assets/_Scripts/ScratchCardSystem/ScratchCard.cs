@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+using _Scripts.ScratchCardSystem.GridSystem;
 using UnityEngine;
 
-namespace _Scripts.GridSystem
+namespace _Scripts.ScratchCardSystem
 {
     public class ScratchCard : MonoBehaviour
     {

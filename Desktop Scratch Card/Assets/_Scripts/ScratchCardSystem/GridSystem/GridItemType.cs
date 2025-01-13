@@ -1,4 +1,4 @@
-namespace _Scripts.GridSystem
+namespace _Scripts.ScratchCardSystem.GridSystem
 {
     public enum GridItemType
     {
