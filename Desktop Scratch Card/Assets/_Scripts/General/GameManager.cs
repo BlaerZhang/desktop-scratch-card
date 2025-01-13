@@ -5,8 +5,10 @@ namespace _Scripts.General
 {
     public class GameManager : MonoBehaviour
     {
-        private GameDataManager _dataManager;
         public static GameManager Instance { get; private set; }
+
+        public GameDataManager dataManager;
+
         private void Awake()
         {
             if (Instance == null)
@@ -18,7 +20,7 @@ namespace _Scripts.General
 
         private void InitializeSystems()
         {
-            _dataManager = GetComponentInChildren<GameDataManager>();
+            // dataManager = GetComponentInChildren<GameDataManager>();
         }
     }
 }

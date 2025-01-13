@@ -20,8 +20,20 @@ namespace _Scripts.PlayerUpgrades
 
         private void Awake()
         {
-            _scratchCardUpgradesHolder = new GameObject("Active Scratch Card Upgrades");
-            _abilityUpgradesHolder = new GameObject("Active Ability Upgrades");
+            _scratchCardUpgradesHolder = new GameObject("Active Scratch Card Upgrades")
+            {
+                transform =
+                {
+                    parent = transform
+                }
+            };
+            _abilityUpgradesHolder = new GameObject("Active Ability Upgrades")
+            {
+                transform =
+                {
+                    parent = transform
+                }
+            };
         }
 
         private void OnEnable()
@@ -32,6 +44,11 @@ namespace _Scripts.PlayerUpgrades
         private void OnDisable()
         {
             ScratchCardManager.onScratchCardSubmitted += PlayScratchCardUpgrade;
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Q)) AddAbilityUpgrade("0");
         }
 
         private void PlayScratchCardUpgrade(ScratchCard card)
@@ -71,14 +88,15 @@ namespace _Scripts.PlayerUpgrades
         private void AddAbilityUpgrade(string id)
         {
             // level up
-            if (!_activeAbilityUpgrades.TryGetValue(id, out var abilityUpgrade))
+            if (!_activeAbilityUpgrades.TryGetValue(id, out var activeAbilityUpgrade))
             {
-                var currentUpgrade = abilityUpgradesPool.Find(upgrade => upgrade.id == id);
-                if (_activeAbilityUpgrades.TryAdd(id, currentUpgrade))
-                    Instantiate(currentUpgrade, _abilityUpgradesHolder.transform);
+                var abilityUpgrade = abilityUpgradesPool.Find(upgrade => upgrade.id == id);
+                var currentUpgrade = Instantiate(abilityUpgrade, _abilityUpgradesHolder.transform);
+                _activeAbilityUpgrades.Add(id, currentUpgrade);
+                currentUpgrade.Level++;
             }
 
-            if (abilityUpgrade != null) abilityUpgrade.Level++;
+            if (activeAbilityUpgrade != null) activeAbilityUpgrade.Level++;
         }
     }
 }
