@@ -69,8 +69,8 @@ public class OrderManager : SerializedMonoBehaviour
 
     [Title("UI")] 
     // public GameObject orderSubmissionArea;
-    public Button originalOrderButton;
-    public List<Button> orderButtons;
+    [SerializeField] private Button originalOrderButton;
+    [SerializeField] private List<Button> orderButtons;
     
     void Start()
     {
@@ -177,7 +177,7 @@ public class OrderManager : SerializedMonoBehaviour
 
         if (canFulfill)
         {
-            //TODO: Fulfill & Pay Money!!!
+            FindFirstObjectByType<EconomyManager>().Currency += currentOrder.reward; //Fulfill & Pay
             orderList[currentDealingOrderIndex] = GenerateOrderFromConfig(orderConfigs[currentDealingOrderIndex]); //generate new order
             
             //Reset Buttons
