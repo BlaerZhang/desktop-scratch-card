@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace _Scripts.PlayerUpgrades
 {
-    public class ScratchCardUpgradeEffect : BaseUpgradeEffect
+    public class ScratchCardUpgrade : BaseUpgrade
     {
         void OnEnable()
         {

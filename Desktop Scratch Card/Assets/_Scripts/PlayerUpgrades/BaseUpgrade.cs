@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace _Scripts.PlayerUpgrades
 {
-    public abstract class BaseUpgradeEffect : MonoBehaviour
+    public abstract class BaseUpgrade : MonoBehaviour
     {
         public string id { get; }
         public string name { get; }

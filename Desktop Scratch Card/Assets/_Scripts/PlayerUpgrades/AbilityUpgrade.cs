@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace _Scripts.PlayerUpgrades
 {
-    public class AbilityUpgrade : BaseUpgradeEffect
+    public class AbilityUpgrade : BaseUpgrade
     {
         private int _level = 0;
         public int Level

@@ -11,16 +11,16 @@ namespace _Scripts.PlayerUpgrades
 
         // 存储所有可用的升级
         public List<AbilityUpgrade> abilityUpgradesPool = new List<AbilityUpgrade>();
-        public List<ScratchCardUpgradeEffect> scratchCardUpgradesPool = new List<ScratchCardUpgradeEffect>();
+        public List<ScratchCardUpgrade> scratchCardUpgradesPool = new List<ScratchCardUpgrade>();
         // 存储已激活的升级
-        private Dictionary<string, ScratchCardUpgradeEffect> _activeCardUpgrades = new Dictionary<string, ScratchCardUpgradeEffect>();
+        private Dictionary<string, ScratchCardUpgrade> _activeCardUpgrades = new Dictionary<string, ScratchCardUpgrade>();
         private Dictionary<string, AbilityUpgrade> _activeAbilityUpgrades = new Dictionary<string, AbilityUpgrade>();
 
         private void AddCardUpgrade(string id)
         {
-            ScratchCardUpgradeEffect currentUpgrade = scratchCardUpgradesPool.Find(upgrade => upgrade.id == id);
-            Instantiate(currentUpgrade, _scratchCardUpgradesHolder.transform);
-            _activeCardUpgrades.TryAdd(id, currentUpgrade);
+            ScratchCardUpgrade currentUpgrade = scratchCardUpgradesPool.Find(upgrade => upgrade.id == id);
+            if (_activeCardUpgrades.TryAdd(id, currentUpgrade))
+                Instantiate(currentUpgrade, _scratchCardUpgradesHolder.transform);
         }
 
         private void RemoveCardUpgrade(string id)
@@ -35,8 +35,8 @@ namespace _Scripts.PlayerUpgrades
             if (!_activeAbilityUpgrades.TryGetValue(id, out var abilityUpgrade))
             {
                 var currentUpgrade = abilityUpgradesPool.Find(upgrade => upgrade.id == id);
-                Instantiate(currentUpgrade, _abilityUpgradesHolder.transform);
-                _activeAbilityUpgrades.TryAdd(id, currentUpgrade);
+                if (_activeAbilityUpgrades.TryAdd(id, currentUpgrade))
+                    Instantiate(currentUpgrade, _abilityUpgradesHolder.transform);
             }
 
             if (abilityUpgrade != null) abilityUpgrade.Level++;
