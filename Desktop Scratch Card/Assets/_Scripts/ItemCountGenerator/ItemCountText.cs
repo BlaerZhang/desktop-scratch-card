@@ -24,7 +24,7 @@ namespace _Scripts.ItemCountGenerator
         {
             if (revealedGrid.Equals(Grid))
             {
-                GetComponent<TextMeshProUGUI>().DOFade(1, 0.1f);
+                GetComponent<TMP_Text>().DOFade(1, 0.1f);
             }
         }
 

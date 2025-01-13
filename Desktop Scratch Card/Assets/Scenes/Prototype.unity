@@ -796,7 +796,7 @@ MonoBehaviour:
   gridDimension: {x: 3, y: 3}
   gridGapLength: {x: 0, y: 0}
   generateStartPoint: {x: 0, y: 0}
-  meanSpawnTime: 5
+  meanSpawnTime: 120
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1163,8 +1163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1c5f82136fc14333b03baf845549992, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textCanvas: {fileID: 8753347542069700537, guid: af57d284917040f4cbdb24475c53ee43, type: 3}
-  itemCountTextPrefab: {fileID: 856162046085309395, guid: fc2b13131cee70641bf9a5c05b6628a7, type: 3}
+  itemCountTextPrefab: {fileID: 7396640442195711308, guid: b873f84ad51133149b98be8ec324bf64, type: 3}
 --- !u!1 &817734341
 GameObject:
   m_ObjectHideFlags: 0

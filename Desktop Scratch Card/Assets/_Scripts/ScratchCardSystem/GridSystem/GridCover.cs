@@ -7,7 +7,7 @@ namespace _Scripts.ScratchCardSystem.GridSystem
     public class GridCover : MonoBehaviour
     {
         private SpriteRenderer _spriteRenderer;
-        // private BoxCollider2D _boxCollider2D;
+        private BoxCollider2D _boxCollider2D;
         private bool isRevealed = false;
         private bool isRevealing = false;
 
@@ -18,8 +18,9 @@ namespace _Scripts.ScratchCardSystem.GridSystem
         void Start()
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
-            // _boxCollider2D = GetComponent<BoxCollider2D>();
+            _boxCollider2D = GetComponent<BoxCollider2D>();
             _spriteRenderer.sortingOrder = 100;
+            _boxCollider2D.isTrigger = true;
 
             // _mergerBG = transform.Find("MergerBG").GetComponent<SpriteRenderer>();
         }

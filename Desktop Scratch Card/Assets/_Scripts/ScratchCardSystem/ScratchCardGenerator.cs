@@ -8,15 +8,14 @@ namespace _Scripts.ScratchCardSystem
 {
     public class ScratchCardGenerator : MonoBehaviour
     {
-        public Canvas textCanvas;
-        public TextMeshProUGUI itemCountTextPrefab;
+        public TMP_Text itemCountTextPrefab;
 
         private GridItemSO _gridItemSo;
 
         private ScratchCard scratchCardObject;
         private GameObject itemParentObject;
         private GameObject coverParentObject;
-        private Canvas textCanvasObject;
+        private GameObject textParentObject;
 
         private int _rows;
         private int _columns;
@@ -38,7 +37,13 @@ namespace _Scripts.ScratchCardSystem
             scratchCardObject = new GameObject("Scratch Card").AddComponent<ScratchCard>();
             scratchCardObject.Initialize(_rows, _columns);
 
-            textCanvasObject = Instantiate(textCanvas, scratchCardObject.transform);
+            textParentObject = new GameObject("Count Texts")
+            {
+                transform =
+                {
+                    parent = scratchCardObject.transform
+                }
+            };
             itemParentObject = new GameObject("Grid Items")
             {
                 transform =
@@ -99,9 +104,9 @@ namespace _Scripts.ScratchCardSystem
 
         private void DistributeItemCount(int row, int column, Vector2 position, GridItemType itemType, int itemCount)
         {
-            TextMeshProUGUI itemCountText = Instantiate(itemCountTextPrefab, Camera.main.WorldToScreenPoint(position-new Vector2(0, 0.25f)), Quaternion.identity, textCanvasObject.transform);
+            TMP_Text itemCountText = Instantiate(itemCountTextPrefab, position-new Vector2(0, 0.25f), Quaternion.identity, textParentObject.transform);
             itemCountText.text = itemCount.ToString();
-            itemCountText.fontSize = 36;
+            itemCountText.fontSize = 3;
             itemCountText.alignment = TextAlignmentOptions.Center;
 
             itemCountText.GetComponent<ItemCountText>().Grid = new Vector2Int(row, column);
