@@ -21,7 +21,7 @@ public class EconomyManager : MonoBehaviour
 
     void Start()
     {
-        
+        UpdateCurrencyUI();
     }
 
     void UpdateCurrencyUI()
