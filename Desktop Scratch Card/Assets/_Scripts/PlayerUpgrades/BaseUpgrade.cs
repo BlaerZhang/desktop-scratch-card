@@ -5,11 +5,9 @@ namespace _Scripts.PlayerUpgrades
 {
     public abstract class BaseUpgrade : MonoBehaviour
     {
-        public string id { get; }
-        public string name { get; }
-        public string description { get; }
-
-        protected virtual void ApplyEffect(){}
-        protected virtual void ApplyEffect(ScratchCard card){}
+        public string id;
+        public string name;
+        [TextArea]
+        public string description;
     }
 }

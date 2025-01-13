@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using _Scripts.GridSystem;
+using DG.Tweening;
 using UnityEngine;
 
 namespace _Scripts.PlayerUpgrades
@@ -16,6 +18,33 @@ namespace _Scripts.PlayerUpgrades
         private Dictionary<string, ScratchCardUpgrade> _activeCardUpgrades = new Dictionary<string, ScratchCardUpgrade>();
         private Dictionary<string, AbilityUpgrade> _activeAbilityUpgrades = new Dictionary<string, AbilityUpgrade>();
 
+        private void OnEnable()
+        {
+            ScratchCardManager.onScratchCardSubmitted += PlayScratchCardUpgrade;
+        }
+
+        private void OnDisable()
+        {
+            ScratchCardManager.onScratchCardSubmitted += PlayScratchCardUpgrade;
+        }
+
+        private void PlayScratchCardUpgrade(ScratchCard card)
+        {
+            Sequence upgradeSequence = DOTween.Sequence();
+            foreach (var upgrade in _activeCardUpgrades)
+            {
+                // if (upgrade.Value.CheckCondition())
+                // {
+                    // upgradeSequence.Append(upgrade.Value.ApplyEffect(card));
+                    // upgradeSequence.Append(null);
+                // }
+            }
+        }
+
+        /// <summary>
+        /// triggered by events
+        /// </summary>
+        /// <param name="id"></param>
         private void AddCardUpgrade(string id)
         {
             ScratchCardUpgrade currentUpgrade = scratchCardUpgradesPool.Find(upgrade => upgrade.id == id);
@@ -29,6 +58,10 @@ namespace _Scripts.PlayerUpgrades
             _activeCardUpgrades.Remove(id);
         }
 
+        /// <summary>
+        /// triggered by update
+        /// </summary>
+        /// <param name="id"></param>
         private void AddAbilityUpgrade(string id)
         {
             // level up
