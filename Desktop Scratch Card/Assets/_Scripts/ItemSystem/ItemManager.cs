@@ -18,11 +18,13 @@ public class ItemManager : SerializedMonoBehaviour
     private void OnEnable()
     {
         ScratchCardManager.onScratchCardSubmitted += AddItems;
+        OrderManager.onSubmissionCancelled += AddItems;
     }
 
     private void OnDisable()
     {
         ScratchCardManager.onScratchCardSubmitted -= AddItems;
+        OrderManager.onSubmissionCancelled -= AddItems;
     }
 
     private void CalculateItems()
@@ -60,6 +62,14 @@ public class ItemManager : SerializedMonoBehaviour
     private void AddItems(ScratchCard card)
     {
         var items = card.GetRewardList();
+        foreach (var item in items)
+        {
+            AddItem((GridItemType)item.x, item.y);
+        }
+    }
+    
+    private void AddItems(List<Vector2Int> items)
+    {
         foreach (var item in items)
         {
             AddItem((GridItemType)item.x, item.y);
