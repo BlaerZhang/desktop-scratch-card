@@ -529,7 +529,6 @@ MonoBehaviour:
   orderList: []
   isSubmitting: 0
   currentDealingOrderIndex: 0
-  orderSubmissionArea: {fileID: 0}
   originalOrderButton: {fileID: 38322605}
   orderButtons: []
 --- !u!1 &519420028
@@ -753,7 +752,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -60, y: 0}
+  m_SizeDelta: {x: -44, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &766119196
 MonoBehaviour:
@@ -775,7 +774,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "<u>Apple\t0/3\nBanana\t1/2\n</u>\nReward\t$100"
+  m_text: "<u>Apple\t10/30\nBanana\t10/20\n</u>\nReward\t$10000"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -807,7 +806,7 @@ MonoBehaviour:
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 24
   m_fontStyle: 0
   m_HorizontalAlignment: 16
   m_VerticalAlignment: 512
