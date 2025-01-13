@@ -7,7 +7,7 @@ using System.Collections.Generic;
 public class TimeTable : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private TimeScheduler timeScheduler;
+    private TimeScheduler timeScheduler;
     [SerializeField] private GameObject eventBlockPrefab;
     [SerializeField] private RectTransform contentParent;
 
@@ -179,7 +179,8 @@ public class TimeTable : MonoBehaviour
             string countdownDisplay = evt.isActive ? 
                 $"Ends in: {FormatTimeSpan(timeUntilEvent)}" : 
                 $"Starts in: {FormatTimeSpan(timeUntilEvent)}";
-            timeText.text = $"{timeDisplay}\n{countdownDisplay}";
+            // timeText.text = $"{timeDisplay}\n{countdownDisplay}
+            timeText.text = $"{timeDisplay}";
         }
 
         if (statusIndicator != null)
