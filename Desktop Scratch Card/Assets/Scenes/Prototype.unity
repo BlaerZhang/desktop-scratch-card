@@ -934,11 +934,11 @@ MonoBehaviour:
   _alphaValue: 1
   _isTopmost: 1
   _isBottommost: 0
-  _isZoomed: 0
+  _isZoomed: 1
   _shouldFitMonitor: 0
   _allowDropFiles: 0
   isHitTestEnabled: 1
-  hitTestType: 1
+  hitTestType: 2
   opacityThreshold: 0.1
   autoSwitchCameraBackground: 1
   forceWindowed: 0

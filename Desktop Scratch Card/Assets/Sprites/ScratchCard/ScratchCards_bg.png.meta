@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      ScratchCards_bg_0: -8591841196876885249
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
