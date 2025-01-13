@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using _Scripts.ScratchCardSystem.GridSystem;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
@@ -15,22 +16,31 @@ public class OrderManager : SerializedMonoBehaviour
     public class Order
     {
         public int orderIndex;
-        public int requiredTypeCount;
         public SerializedDictionary<GridItemType, Vector2Int> orderDetail;
         public int reward;
         public bool isActive;
 
-        public Order(int orderIndex, int typeCount, int minRequiredAmount, int maxRequiredAmount)
+        /// <summary>
+        /// Constructor of Order
+        /// </summary>
+        /// <param name="orderIndex">Must match the index of configs and buttons</param>
+        /// <param name="orderRequirements">Type required, Quantity of the type required</param>
+        public Order(int orderIndex, Dictionary<GridItemType,int> orderRequirements)
         {
-            requiredTypeCount = typeCount;
+            this.orderIndex = orderIndex;
             orderDetail = new SerializedDictionary<GridItemType, Vector2Int>();
-            GridItemType[] requiredTypes = EnumExtensions.GetRandomUniqueValues<GridItemType>(typeCount);
-            foreach (var type in requiredTypes)
+
+            int basicReward = 0;
+            foreach (var requirement in orderRequirements)
             {
-                int requiredAmount = Random.Range(minRequiredAmount, maxRequiredAmount);
-                orderDetail.Add(type, new Vector2Int(0, requiredAmount));
-                reward += requiredAmount * 10; //TODO: reward per item of type to design
+                orderDetail.Add(requirement.Key, new Vector2Int(0, requirement.Value));
+                basicReward += requirement.Value * 10; //TODO: reward per item of type to design
             }
+            // print($"Basic Reward: {basicReward}");
+            // print($"Quantity F: {0.9f + basicReward / 100f}");
+            // print($"Type F: {0.9f + orderRequirements.Count / 10f}");
+
+            reward = Mathf.RoundToInt(basicReward * (0.9f + basicReward / 100f) * (0.9f + orderRequirements.Count / 10f));
 
             isActive = false;
         }
@@ -60,8 +70,8 @@ public class OrderManager : SerializedMonoBehaviour
 
     [Title("UI")] 
     // public GameObject orderSubmissionArea;
-    public Button originalOrderButton;
-    public List<Button> orderButtons;
+    [SerializeField] private Button originalOrderButton;
+    [SerializeField] private List<Button> orderButtons;
     
     void Start()
     {
@@ -100,9 +110,18 @@ public class OrderManager : SerializedMonoBehaviour
 
     private Order GenerateOrderFromConfig(OrderGenerationConfig config)
     {
-        Order newOrder = new Order(config.configIndex, Random.Range(config.minTypeCount, config.maxTypeCount),
-            config.minRequiredAmount, config.maxRequiredAmount);
-        return newOrder;
+        Dictionary<GridItemType, int> requirements = new Dictionary<GridItemType, int>();
+
+        GridItemType[] requiredTypes =
+            EnumExtensions.GetRandomUniqueValues<GridItemType>(Random.Range(config.minTypeCount, config.maxTypeCount));
+        
+        foreach (var type in requiredTypes)
+        {
+            int requiredAmount = Random.Range(config.minRequiredAmount, config.maxRequiredAmount);
+            requirements.Add(type, requiredAmount);
+        }
+        
+        return new Order(config.configIndex, requirements);
     }
 
     private void UpdateUI()
@@ -159,7 +178,7 @@ public class OrderManager : SerializedMonoBehaviour
 
         if (canFulfill)
         {
-            //TODO: Fulfill & Pay Money!!!
+            FindFirstObjectByType<EconomyManager>().Currency += currentOrder.reward; //Fulfill & Pay
             orderList[currentDealingOrderIndex] = GenerateOrderFromConfig(orderConfigs[currentDealingOrderIndex]); //generate new order
             
             //Reset Buttons

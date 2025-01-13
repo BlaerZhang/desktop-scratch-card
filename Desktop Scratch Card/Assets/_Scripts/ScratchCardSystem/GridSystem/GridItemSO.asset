@@ -16,11 +16,11 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 803463441676525100, guid: 39cf567d9524a844ea6666726e0c3ba5, type: 3}
-    - {fileID: 7525888635355953523, guid: edcb2fe5798963d44beb78e9d03db1fe, type: 3}
-    - {fileID: 23484427262454850, guid: ba316b8920a09994db19a314de10f6cd, type: 3}
-    - {fileID: 4369902993844554849, guid: 540a46d5dab658d46b17564fea25664f, type: 3}
-    - {fileID: -1320900453516527366, guid: 30da6f02f179c2d4c9825c5369d5e034, type: 3}
+    - {fileID: 803463441676525100, guid: 6188b7df55b49425aa0cc07b343f7266, type: 3}
+    - {fileID: 7525888635355953523, guid: 312b0b51a53cf4ca89ad0ed0acb2e871, type: 3}
+    - {fileID: 23484427262454850, guid: 26ffd635507694972b22b58da1c25b95, type: 3}
+    - {fileID: 4369902993844554849, guid: c0f2e9a4be2b8443ab186dd081e6763d, type: 3}
+    - {fileID: -1320900453516527366, guid: 3779df1b4d0dc496786f6f7f379295f1, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -28,11 +28,12 @@ MonoBehaviour:
     SerializationNodes:
     - Name: itemPool
       Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[_Scripts.GridSystem.GridItemType,
-        Assembly-CSharp],[_Scripts.GridSystem.GridTypeData, Assembly-CSharp]], mscorlib
+      Data: 0|System.Collections.Generic.Dictionary`2[[_Scripts.ScratchCardSystem.GridSystem.GridItemType,
+        Assembly-CSharp],[_Scripts.ScratchCardSystem.GridSystem.GridTypeData, Assembly-CSharp]],
+        mscorlib
     - Name: comparer
       Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[_Scripts.GridSystem.GridItemType,
+      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[_Scripts.ScratchCardSystem.GridSystem.GridItemType,
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
@@ -54,23 +55,23 @@ MonoBehaviour:
       Data: 1
     - Name: $v
       Entry: 7
-      Data: _Scripts.GridSystem.GridTypeData, Assembly-CSharp
+      Data: _Scripts.ScratchCardSystem.GridSystem.GridTypeData, Assembly-CSharp
     - Name: itemLevelData
       Entry: 7
-      Data: 2|System.Collections.Generic.List`1[[_Scripts.GridSystem.GridItemData,
+      Data: 2|System.Collections.Generic.List`1[[_Scripts.ScratchCardSystem.GridSystem.GridItemData,
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: _Scripts.GridSystem.GridItemData, Assembly-CSharp
+      Data: _Scripts.ScratchCardSystem.GridSystem.GridItemData, Assembly-CSharp
     - Name: level
       Entry: 3
       Data: 0
     - Name: id
-      Entry: 1
-      Data: ck_0
+      Entry: 6
+      Data: 
     - Name: image
       Entry: 10
       Data: 0
@@ -106,23 +107,23 @@ MonoBehaviour:
       Data: 2
     - Name: $v
       Entry: 7
-      Data: _Scripts.GridSystem.GridTypeData, Assembly-CSharp
+      Data: _Scripts.ScratchCardSystem.GridSystem.GridTypeData, Assembly-CSharp
     - Name: itemLevelData
       Entry: 7
-      Data: 3|System.Collections.Generic.List`1[[_Scripts.GridSystem.GridItemData,
+      Data: 3|System.Collections.Generic.List`1[[_Scripts.ScratchCardSystem.GridSystem.GridItemData,
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: _Scripts.GridSystem.GridItemData, Assembly-CSharp
+      Data: _Scripts.ScratchCardSystem.GridSystem.GridItemData, Assembly-CSharp
     - Name: level
       Entry: 3
       Data: 0
     - Name: id
-      Entry: 1
-      Data: pc_0
+      Entry: 6
+      Data: 
     - Name: image
       Entry: 10
       Data: 1
@@ -158,23 +159,23 @@ MonoBehaviour:
       Data: 0
     - Name: $v
       Entry: 7
-      Data: _Scripts.GridSystem.GridTypeData, Assembly-CSharp
+      Data: _Scripts.ScratchCardSystem.GridSystem.GridTypeData, Assembly-CSharp
     - Name: itemLevelData
       Entry: 7
-      Data: 4|System.Collections.Generic.List`1[[_Scripts.GridSystem.GridItemData,
+      Data: 4|System.Collections.Generic.List`1[[_Scripts.ScratchCardSystem.GridSystem.GridItemData,
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: _Scripts.GridSystem.GridItemData, Assembly-CSharp
+      Data: _Scripts.ScratchCardSystem.GridSystem.GridItemData, Assembly-CSharp
     - Name: level
       Entry: 3
       Data: 0
     - Name: id
-      Entry: 1
-      Data: rb_0
+      Entry: 6
+      Data: 
     - Name: image
       Entry: 10
       Data: 2
@@ -210,23 +211,23 @@ MonoBehaviour:
       Data: 3
     - Name: $v
       Entry: 7
-      Data: _Scripts.GridSystem.GridTypeData, Assembly-CSharp
+      Data: _Scripts.ScratchCardSystem.GridSystem.GridTypeData, Assembly-CSharp
     - Name: itemLevelData
       Entry: 7
-      Data: 5|System.Collections.Generic.List`1[[_Scripts.GridSystem.GridItemData,
+      Data: 5|System.Collections.Generic.List`1[[_Scripts.ScratchCardSystem.GridSystem.GridItemData,
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: _Scripts.GridSystem.GridItemData, Assembly-CSharp
+      Data: _Scripts.ScratchCardSystem.GridSystem.GridItemData, Assembly-CSharp
     - Name: level
       Entry: 3
       Data: 0
     - Name: id
-      Entry: 1
-      Data: pz_0
+      Entry: 6
+      Data: 
     - Name: image
       Entry: 10
       Data: 3
@@ -262,23 +263,23 @@ MonoBehaviour:
       Data: 4
     - Name: $v
       Entry: 7
-      Data: _Scripts.GridSystem.GridTypeData, Assembly-CSharp
+      Data: _Scripts.ScratchCardSystem.GridSystem.GridTypeData, Assembly-CSharp
     - Name: itemLevelData
       Entry: 7
-      Data: 6|System.Collections.Generic.List`1[[_Scripts.GridSystem.GridItemData,
+      Data: 6|System.Collections.Generic.List`1[[_Scripts.ScratchCardSystem.GridSystem.GridItemData,
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: _Scripts.GridSystem.GridItemData, Assembly-CSharp
+      Data: _Scripts.ScratchCardSystem.GridSystem.GridItemData, Assembly-CSharp
     - Name: level
       Entry: 3
       Data: 0
     - Name: id
-      Entry: 1
-      Data: mt_0
+      Entry: 6
+      Data: 
     - Name: image
       Entry: 10
       Data: 4

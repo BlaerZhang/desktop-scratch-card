@@ -1,13 +1,12 @@
-using System.Collections.Generic;
 using _Scripts.ItemCountGenerator;
+using _Scripts.ScratchCardSystem.GridSystem;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace _Scripts.GridSystem
+namespace _Scripts.ScratchCardSystem
 {
-    public class GridGenerator : MonoBehaviour
+    public class ScratchCardGenerator : MonoBehaviour
     {
         public Canvas textCanvas;
         public TextMeshProUGUI itemCountTextPrefab;
@@ -23,13 +22,22 @@ namespace _Scripts.GridSystem
         private int _columns;
         private Vector2 _gridGapLength;
         private Vector2 _startPoint;
-        private GridData _gridData;
         private int[,] _itemCounts;
 
-        public void Initialize(Vector2Int dimension, Vector2 gridGapLength, Vector2 startPoint, GridItemSO gridItemSo, GridData gridData, int[,] itemCounts)
+        public void Initialize(Vector2Int dimension, Vector2 gridGapLength, Vector2 startPoint, GridItemSO gridItemSo, int[,] itemCounts)
         {
+            // fetch data
+            _rows = dimension.x;
+            _columns = dimension.y;
+            _gridGapLength = gridGapLength;
+            _startPoint = startPoint;
+            _gridItemSo = gridItemSo;
+            _itemCounts = itemCounts;
+
             // basic frame of the scratch card
             scratchCardObject = new GameObject("Scratch Card").AddComponent<ScratchCard>();
+            scratchCardObject.Initialize(_rows, _columns);
+
             textCanvasObject = Instantiate(textCanvas, scratchCardObject.transform);
             itemParentObject = new GameObject("Grid Items")
             {
@@ -45,15 +53,6 @@ namespace _Scripts.GridSystem
                     parent = scratchCardObject.transform
                 }
             };
-
-            // fetch data
-            _rows = dimension.x;
-            _columns = dimension.y;
-            _gridGapLength = gridGapLength;
-            _startPoint = startPoint;
-            _gridItemSo = gridItemSo;
-            _gridData = gridData;
-            _itemCounts = itemCounts;
         }
 
         private void GenerateCover(int row, int column)
@@ -142,7 +141,7 @@ namespace _Scripts.GridSystem
             var gridItem = itemObject.AddComponent<GridItem>();
             gridItem.Initialize(itemType, itemData);
 
-            _gridData.items[row, column] = gridItem;
+            scratchCardObject.SetCardItemMatrix(row, column, gridItem);
 
             // SetItemData(gridItem, randItemData);
 
@@ -152,7 +151,7 @@ namespace _Scripts.GridSystem
 
             // distribute item count
             int currentItemCount = _itemCounts[row, column];
-            DistributeItemCount(row, column, itemObject.transform.position, itemType, currentItemCount);
+             DistributeItemCount(row, column, itemObject.transform.position, itemType, currentItemCount);
         }
 
         /// <summary>
@@ -181,7 +180,7 @@ namespace _Scripts.GridSystem
             var gridItem = itemObject.AddComponent<GridItem>();
             gridItem.Initialize(type, itemData);
 
-            _gridData.items[row, column] = gridItem;
+            scratchCardObject.SetCardItemMatrix(row, column, gridItem);
 
             // SetItemData(gridItem, randItemData);
 
@@ -190,12 +189,8 @@ namespace _Scripts.GridSystem
             sr.sprite = itemData.image;
         }
 
-        public ScratchCard GenerateAllGrids()
+        public ScratchCard GenerateScratchCard()
         {
-            _gridData.items = new GridItem[_rows, _columns];
-            // _gridData.covers = new MergerGridCover[_rows, _columns];
-            _gridData.revealedGrids = new List<Vector2Int>();
-
             for (int i = 0; i < _rows; i++)
             {
                 for (int j = 0; j < _columns; j++)
