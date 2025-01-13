@@ -934,8 +934,8 @@ MonoBehaviour:
   _alphaValue: 1
   _isTopmost: 1
   _isBottommost: 0
-  _isZoomed: 0
-  _shouldFitMonitor: 0
+  _isZoomed: 1
+  _shouldFitMonitor: 1
   _allowDropFiles: 0
   isHitTestEnabled: 1
   hitTestType: 1
