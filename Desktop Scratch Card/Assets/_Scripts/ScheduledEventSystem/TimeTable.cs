@@ -138,11 +138,22 @@ public class TimeTable : MonoBehaviour
 
         SortEventBlocks();
         
-        //update Next up
-        DateTime eventTime = currentTime.Date.Add(new TimeSpan(allEvents[0].hours, allEvents[0].minutes, 0));
-        TimeSpan timeUntilEvent = eventTime - currentTime;
-        nextUpText.text = $"{FormatTimeSpan(timeUntilEvent)}";
-
+        // Update Next up
+        TimeScheduler.ScheduledEvent nextEvent = FindNextEvent(allEvents, currentTime);
+        if (nextEvent != null)
+        {
+            DateTime eventTime = currentTime.Date.Add(new TimeSpan(nextEvent.hours, nextEvent.minutes, 0));
+            if (eventTime < currentTime)
+            {
+                eventTime = eventTime.AddDays(1);
+            }
+            TimeSpan timeUntilEvent = eventTime - currentTime;
+            nextUpText.text = $"{timeUntilEvent:mm':'ss}";
+        }
+        else
+        {
+            nextUpText.text = "--:--";
+        }
     }
 
     private void CreateEventBlock(TimeScheduler.ScheduledEvent evt, DateTime currentTime)
@@ -186,7 +197,6 @@ public class TimeTable : MonoBehaviour
             string countdownDisplay = evt.isActive ? 
                 $"Ends in: {FormatTimeSpan(timeUntilEvent)}" : 
                 $"Starts in: {FormatTimeSpan(timeUntilEvent)}";
-            // timeText.text = $"{timeDisplay}\n{countdownDisplay}
             timeText.text = $"{timeDisplay}";
         }
 
@@ -247,8 +257,7 @@ public class TimeTable : MonoBehaviour
         {
             if (kvp.Value == block)
             {
-                // 从事件名中判断是否为活跃事件
-                var statusIndicator = block.transform.Find("StatusIndicator")?.GetComponent<Image>();
+                var statusIndicator = block.transform.Find("Status Indicator")?.GetComponent<Image>();
                 return statusIndicator != null && statusIndicator.color == Color.green;
             }
         }
@@ -280,5 +289,39 @@ public class TimeTable : MonoBehaviour
     private string GetEventKey(TimeScheduler.ScheduledEvent evt)
     {
         return $"{evt.eventName}_{evt.hours:D2}:{evt.minutes:D2}";
+    }
+    
+    private TimeScheduler.ScheduledEvent FindNextEvent(List<TimeScheduler.ScheduledEvent> events, DateTime currentTime)
+    {
+        if (events == null || events.Count == 0)
+            return null;
+
+        TimeSpan currentTimeOfDay = currentTime.TimeOfDay;
+        TimeScheduler.ScheduledEvent nextEvent = null;
+        double shortestTime = double.MaxValue;
+
+        foreach (var evt in events)
+        {
+            TimeSpan eventTime = new TimeSpan(evt.hours, evt.minutes, 0);
+            double timeUntilEvent;
+
+            if (eventTime < currentTimeOfDay)
+            {
+                // 如果事件时间早于当前时间，说明是第二天的事件
+                timeUntilEvent = (TimeSpan.FromHours(24) - currentTimeOfDay + eventTime).TotalSeconds;
+            }
+            else
+            {
+                timeUntilEvent = (eventTime - currentTimeOfDay).TotalSeconds;
+            }
+
+            if (timeUntilEvent < shortestTime)
+            {
+                shortestTime = timeUntilEvent;
+                nextEvent = evt;
+            }
+        }
+
+        return nextEvent;
     }
 }
