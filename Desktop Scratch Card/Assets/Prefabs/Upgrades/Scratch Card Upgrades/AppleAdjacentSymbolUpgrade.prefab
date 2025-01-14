@@ -46,6 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   description: 
-  winEffectDuration: 0.5
+  symbolEffectScale: 1.5
+  winEffectDuration: 0.25
   mainType: 0
   adjacentRewardTypes: 0300000004000000
+  rewardItemCount: 2

@@ -15,90 +15,166 @@ namespace _Scripts.PlayerUpgrades.ScratchCardUpgrades
 
         public int rewardItemCount = 2;
 
-        // TODO: add number to the text
-        private Tween AddRewardItemCount(int itemCount, TMP_Text itemCountText)
-        {
-            int finalCount = itemCount + rewardItemCount;
-
-            return DOVirtual.Int(itemCount, finalCount, 0.2f,
-                value => itemCountText.text = value.ToString());
-        }
-
         public override bool CheckWin(ScratchCard card, out Sequence winEffect)
         {
             winEffect = DOTween.Sequence();
             winEffect.SetLink(card.gameObject);
 
             bool hasWon = false;
-
             var gridItems = card.gridData.items;
             int rows = gridItems.GetLength(0);
             int columns = gridItems.GetLength(1);
 
+            // 按照矩阵顺序处理每个mainType符号
             for (int i = 0; i < rows; i++)
             {
                 for (int j = 0; j < columns; j++)
                 {
                     var currentItem = gridItems[i, j];
-
                     if (!currentItem.type.Equals(mainType)) continue;
 
-                    if (j < columns - 2)
-                    {
-                        var rightItem = gridItems[i, j + 1];
-                        if (adjacentRewardTypes.Contains(rightItem.type))
-                        {
-                            // effect
-                            winEffect.Append(currentItem.transform.DOShakeScale(winEffectDuration));
-                            winEffect.Join(rightItem.transform.DOShakeScale(winEffectDuration));
-                            winEffect.Join(AddRewardItemCount(Int32.Parse(currentItem.ItemCountText.text), currentItem.ItemCountText));
+                    int initialItemCount = Int32.Parse(currentItem.ItemCountText.text);
+                    int finalItemCount = Int32.Parse(currentItem.ItemCountText.text);
 
-                            hasWon = true;
+                    // 顺时针方向数组：右、下、左、上
+                    (int di, int dj)[] directions = new[]
+                    {
+                        (0, 1),   // 右
+                        (1, 0),   // 下
+                        (0, -1),  // 左
+                        (-1, 0)   // 上
+                    };
+
+                    // 为当前符号创建一个子序列处理其周围的符号
+                    Sequence itemSequence = DOTween.Sequence();
+                    bool hasAdjacentMatch = false;
+
+                    // 检查四个方向
+                    foreach (var (di, dj) in directions)
+                    {
+                        int newI = i + di;
+                        int newJ = j + dj;
+
+                        // 检查边界
+                        if (newI >= 0 && newI < rows && newJ >= 0 && newJ < columns)
+                        {
+                            var adjacentItem = gridItems[newI, newJ];
+                            if (adjacentRewardTypes.Contains(adjacentItem.type))
+                            {
+                                hasAdjacentMatch = true;
+
+                                // 创建这对符号的动画序列
+                                Sequence pairSequence = DOTween.Sequence();
+
+                                // 同时抖动当前符号和相邻符号
+                                pairSequence.Append(DOTween.Sequence()
+                                    .Join(currentItem.transform.DOScale(Vector3.one * symbolEffectScale, winEffectDuration).SetLoops(2, LoopType.Yoyo))
+                                    .Join(adjacentItem.transform.DOScale(Vector3.one * symbolEffectScale, winEffectDuration).SetLoops(2, LoopType.Yoyo)));
+
+                                // 更新计数
+                                finalItemCount += rewardItemCount;
+                                pairSequence.Append(AddRewardItemCount(initialItemCount, finalItemCount, currentItem.ItemCountText));
+                                initialItemCount = finalItemCount;
+
+                                // 添加到当前符号的序列中
+                                itemSequence.Append(pairSequence);
+                            }
                         }
                     }
-                    if (i < rows - 2)
-                    {
-                        var downItem = gridItems[i + 1, j];
-                        if (adjacentRewardTypes.Contains(downItem.type))
-                        {
-                            // effect
-                            winEffect.Append(currentItem.transform.DOShakeScale(winEffectDuration));
-                            winEffect.Join(downItem.transform.DOShakeScale(winEffectDuration));
-                            winEffect.Join(AddRewardItemCount(Int32.Parse(currentItem.ItemCountText.text), currentItem.ItemCountText));
 
-                            hasWon = true;
-                        }
-                    }
-                    if (j > 0)
+                    // 如果当前符号有匹配的相邻符号，将其序列添加到主序列
+                    if (hasAdjacentMatch)
                     {
-                        var leftItem = gridItems[i, j - 1];
-                        if (adjacentRewardTypes.Contains(leftItem.type))
-                        {
-                            // effect
-                            winEffect.Append(currentItem.transform.DOShakeScale(winEffectDuration));
-                            winEffect.Join(leftItem.transform.DOShakeScale(winEffectDuration));
-                            winEffect.Join(AddRewardItemCount(Int32.Parse(currentItem.ItemCountText.text), currentItem.ItemCountText));
-
-                            hasWon = true;
-                        }
-                    }
-                    if (i > 0)
-                    {
-                        var upItem = gridItems[i - 1, j];
-                        if (adjacentRewardTypes.Contains(upItem.type))
-                        {
-                            // effect
-                            winEffect.Append(currentItem.transform.DOShakeScale(winEffectDuration));
-                            winEffect.Join(upItem.transform.DOShakeScale(winEffectDuration));
-                            winEffect.Join(AddRewardItemCount(Int32.Parse(currentItem.ItemCountText.text), currentItem.ItemCountText));
-
-                            hasWon = true;
-                        }
+                        winEffect.Append(itemSequence);
+                        hasWon = true;
                     }
                 }
             }
 
             return hasWon;
         }
+
+        private Tween AddRewardItemCount(int initialCount, int finalCount, TMP_Text itemCountText)
+        {
+            return DOVirtual.Int(initialCount, finalCount, .5f,
+                value => itemCountText.text = value.ToString());
+        }
+
+        // public override bool CheckWin(ScratchCard card, out Sequence winEffect)
+        // {
+        //     winEffect = DOTween.Sequence();
+        //     winEffect.SetLink(card.gameObject);
+        //
+        //     bool hasWon = false;
+        //
+        //     var gridItems = card.gridData.items;
+        //     int rows = gridItems.GetLength(0);
+        //     int columns = gridItems.GetLength(1);
+        //
+        //     for (int i = 0; i < rows; i++)
+        //     {
+        //         for (int j = 0; j < columns; j++)
+        //         {
+        //             var currentItem = gridItems[i, j];
+        //
+        //             if (!currentItem.type.Equals(mainType)) continue;
+        //
+        //             if (j < columns - 2)
+        //             {
+        //                 var rightItem = gridItems[i, j + 1];
+        //                 if (adjacentRewardTypes.Contains(rightItem.type))
+        //                 {
+        //                     // effect
+        //                     winEffect.Append(currentItem.transform.DOShakeScale(winEffectDuration));
+        //                     winEffect.Join(rightItem.transform.DOShakeScale(winEffectDuration));
+        //                     winEffect.Join(AddRewardItemCount(Int32.Parse(currentItem.ItemCountText.text), currentItem.ItemCountText));
+        //
+        //                     hasWon = true;
+        //                 }
+        //             }
+        //             if (i < rows - 2)
+        //             {
+        //                 var downItem = gridItems[i + 1, j];
+        //                 if (adjacentRewardTypes.Contains(downItem.type))
+        //                 {
+        //                     // effect
+        //                     winEffect.Append(currentItem.transform.DOShakeScale(winEffectDuration));
+        //                     winEffect.Join(downItem.transform.DOShakeScale(winEffectDuration));
+        //                     winEffect.Join(AddRewardItemCount(Int32.Parse(currentItem.ItemCountText.text), currentItem.ItemCountText));
+        //
+        //                     hasWon = true;
+        //                 }
+        //             }
+        //             if (j > 0)
+        //             {
+        //                 var leftItem = gridItems[i, j - 1];
+        //                 if (adjacentRewardTypes.Contains(leftItem.type))
+        //                 {
+        //                     // effect
+        //                     winEffect.Append(currentItem.transform.DOShakeScale(winEffectDuration));
+        //                     winEffect.Join(leftItem.transform.DOShakeScale(winEffectDuration));
+        //                     winEffect.Join(AddRewardItemCount(Int32.Parse(currentItem.ItemCountText.text), currentItem.ItemCountText));
+        //
+        //                     hasWon = true;
+        //                 }
+        //             }
+        //             if (i > 0)
+        //             {
+        //                 var upItem = gridItems[i - 1, j];
+        //                 if (adjacentRewardTypes.Contains(upItem.type))
+        //                 {
+        //                     // effect
+        //                     winEffect.Append(currentItem.transform.DOShakeScale(winEffectDuration));
+        //                     winEffect.Join(upItem.transform.DOShakeScale(winEffectDuration));
+        //                     winEffect.Join(AddRewardItemCount(Int32.Parse(currentItem.ItemCountText.text), currentItem.ItemCountText));
+        //
+        //                     hasWon = true;
+        //                 }
+        //             }
+        //         }
+        //     }
+        //
+        //     return hasWon;
+        // }
     }
 }
