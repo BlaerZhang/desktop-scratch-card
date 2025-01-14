@@ -2,7 +2,10 @@ using _Scripts.ItemCountGenerator;
 using _Scripts.ScratchCardSystem.GridSystem;
 using DG.Tweening;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Serialization;
 
 namespace _Scripts.ScratchCardSystem
 {
@@ -10,6 +13,10 @@ namespace _Scripts.ScratchCardSystem
     {
         public TMP_Text itemCountTextPrefab;
         public Sprite gridCoverSprite;
+        public Sprite coverIconSprite;
+        public Sprite gridBGSprite;
+        public Sprite numberTagSprite;
+        public Sprite cardBackground;
 
         private GridItemSO _gridItemSo;
 
@@ -32,11 +39,12 @@ namespace _Scripts.ScratchCardSystem
             _gridGapLength = gridGapLength;
             _startPoint = startPoint;
             _gridItemSo = gridItemSo;
-            _itemCounts = itemCounts;
+            _itemCounts = itemCounts; 
 
             // basic frame of the scratch card
             scratchCardObject = new GameObject("Scratch Card").AddComponent<ScratchCard>();
             scratchCardObject.Initialize(_rows, _columns);
+            scratchCardObject.AddComponent<SortingGroup>().sortingOrder = 2;
 
             textParentObject = new GameObject("Count Texts")
             {
@@ -59,6 +67,14 @@ namespace _Scripts.ScratchCardSystem
                     parent = scratchCardObject.transform
                 }
             };
+            
+            //bg
+            Vector2 centerPos = new Vector2(startPoint.x + gridGapLength.x + 1, startPoint.y - gridGapLength.y - 0.75f);
+            SpriteRenderer background = new GameObject("Background").AddComponent<SpriteRenderer>();
+            background.transform.position = centerPos;
+            background.transform.parent = scratchCardObject.transform;
+            background.sprite = cardBackground;
+            background.sortingOrder = -102;
         }
 
         private void GenerateCover(int row, int column)
@@ -82,18 +98,34 @@ namespace _Scripts.ScratchCardSystem
             gridCover.grid = new Vector2Int(row, column);
 
             // generate cover BG
-            // GameObject bg = new GameObject("MergerBG")
-            // {
-            //     transform =
-            //     {
-            //         parent = cover.transform,
-            //         position = cover.transform.position
-            //     }
-            // };
-            // var bgSpriteRenderer = bg.AddComponent<SpriteRenderer>();
+            GameObject bg = new GameObject("Grid BG")
+            {
+                transform =
+                {
+                    parent = cover.transform,
+                    position = cover.transform.position
+                }
+            };
+            var bgSpriteRenderer = bg.AddComponent<SpriteRenderer>();
             // bgSpriteRenderer.sprite = Resources.Load<Sprite>("DefaultAssets/Textures/Square");
+            bgSpriteRenderer.sprite = gridBGSprite;
             // bgSpriteRenderer.color = Color.gray;
-            // bgSpriteRenderer.sortingOrder = -101;
+            bgSpriteRenderer.sortingOrder = -101;
+            
+            // generate cover icon
+            GameObject icon = new GameObject("Cover Icon")
+            {
+                transform =
+                {
+                    parent = cover.transform,
+                    position = cover.transform.position
+                }
+            };
+            var iconSpriteRenderer = icon.AddComponent<SpriteRenderer>();
+            // bgSpriteRenderer.sprite = Resources.Load<Sprite>("DefaultAssets/Textures/Square");
+            iconSpriteRenderer.sprite = coverIconSprite;
+            // bgSpriteRenderer.color = Color.gray;
+            iconSpriteRenderer.sortingOrder = 1000;
 
             // _gridData.covers[row, column] = mergerGridCover;
         }
@@ -105,9 +137,9 @@ namespace _Scripts.ScratchCardSystem
 
         private void DistributeItemCount(int row, int column, Vector2 position, GridItemType itemType, int itemCount)
         {
-            TMP_Text itemCountText = Instantiate(itemCountTextPrefab, position-new Vector2(0, 0.25f), Quaternion.identity, textParentObject.transform);
+            TMP_Text itemCountText = Instantiate(itemCountTextPrefab, position - new Vector2(-0.18f, 0.18f), Quaternion.identity, textParentObject.transform);
             itemCountText.text = itemCount.ToString();
-            itemCountText.fontSize = 3;
+            // itemCountText.fontSize = 3;
             itemCountText.alignment = TextAlignmentOptions.Center;
 
             itemCountText.GetComponent<ItemCountText>().Grid = new Vector2Int(row, column);

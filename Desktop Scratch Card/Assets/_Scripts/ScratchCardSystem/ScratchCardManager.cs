@@ -1,6 +1,7 @@
 using System;
 using _Scripts.ItemCountGenerator;
 using _Scripts.ScratchCardSystem.GridSystem;
+using DG.Tweening;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -27,6 +28,7 @@ namespace _Scripts.ScratchCardSystem
         public Vector2Int gridDimension = new Vector2Int(3, 3);
         public Vector2 gridGapLength = Vector2.zero;
         public Vector2 generateStartPoint = Vector2.zero;
+        public Vector2 generateStartAnimationOffset = Vector2.zero;
 
         [Header("Spawn Time")]
         public float meanSpawnTime = 15f;
@@ -101,6 +103,9 @@ namespace _Scripts.ScratchCardSystem
 
             scratchCardGenerator.Initialize(gridDimension, gridGapLength, generateStartPoint, gridItemSo, itemCounts);
             _currentScratchCard = scratchCardGenerator.GenerateScratchCard();
+            _currentScratchCard.transform.position += (Vector3)generateStartAnimationOffset;
+            _currentScratchCard.transform.DOMove(
+                (Vector2)_currentScratchCard.transform.position - generateStartAnimationOffset, 0.25f);
         }
 
         private ScratchCard _currentScratchCard;
@@ -111,14 +116,20 @@ namespace _Scripts.ScratchCardSystem
         {
             if (_scratchCardFinished)
             {
-                _scratchCardFinished = false;
-                // TODO: destroy after the bonus stage ends
-                _currentScratchCard.SelfDestroy();
-                _revealedGrids = 0;
-                // print("scratch card submitted");
+                _currentScratchCard.transform
+                    .DOMove((Vector2)_currentScratchCard.transform.position + generateStartAnimationOffset, 0.25f)
+                    .OnComplete((
+                        () =>
+                        {
+                            _scratchCardFinished = false;
+                            // TODO: destroy after the bonus stage ends
+                            _currentScratchCard.SelfDestroy();
+                            _revealedGrids = 0;
+                            // print("scratch card submitted");
 
-                // generate items
-                onScratchCardSubmitted?.Invoke(_currentScratchCard);
+                            // generate items
+                            onScratchCardSubmitted?.Invoke(_currentScratchCard);
+                        }));
             }
 
             CalculateNextSpawnTime();
