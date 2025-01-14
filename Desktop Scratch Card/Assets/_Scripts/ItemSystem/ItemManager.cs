@@ -15,10 +15,13 @@ public class ItemManager : SerializedMonoBehaviour
     
     [DisableInPlayMode] public Dictionary<GridItemType, GameObject> itemPrefabDict;
 
+    public static Action onItemUpdated;
+
     private void OnEnable()
     {
         ScratchCardManager.onScratchCardSubmitted += AddItems;
         OrderManager.onSubmissionCancelled += AddItems;
+        CalculateItems();
     }
 
     private void OnDisable()
@@ -50,13 +53,8 @@ public class ItemManager : SerializedMonoBehaviour
         {
             playerItemStats[type] = playerItemList.Count(item => item.itemType == type);
         }
-    }
-    
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Alpha1)) AddItem(GridItemType.Apple);
-        if(Input.GetKeyDown(KeyCode.Alpha2)) AddItem(GridItemType.Banana);
-        if (Input.GetKeyDown(KeyCode.Alpha3)) AddItem(GridItemType.Grape, 3);
+        
+        onItemUpdated?.Invoke();
     }
 
     private void AddItems(ScratchCard card)

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using _Scripts.ScratchCardSystem.GridSystem;
+using DG.Tweening;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
@@ -61,6 +62,9 @@ public class OrderManager : SerializedMonoBehaviour
     
     [Title("Submitting")] 
     public List<Order> orderList;
+    public GameObject orderSubmissionArea;
+    private TMP_Text _orderSubmissionUIText;
+    public Vector2 submissionAreaAnimationOffset;
     
     [Title("State Control")]
     public bool isSubmitting = false;
@@ -72,7 +76,17 @@ public class OrderManager : SerializedMonoBehaviour
     // public GameObject orderSubmissionArea;
     [SerializeField] private Button originalOrderButton;
     [SerializeField] private List<Button> orderButtons;
+
+    private void OnEnable()
+    {
+        ItemManager.onItemUpdated += UpdateUI;
+    }
     
+    private void OnDisable()
+    {
+        ItemManager.onItemUpdated -= UpdateUI;
+    }
+
     void Start()
     {
         if (orderConfigs.Count <= 0)
@@ -96,6 +110,9 @@ public class OrderManager : SerializedMonoBehaviour
             newButton.onClick.AddListener(() => StartSubmission(index));
             orderButtons.Add(newButton);
         }
+
+        orderSubmissionArea.transform.position += (Vector3)submissionAreaAnimationOffset;
+        _orderSubmissionUIText = orderSubmissionArea.transform.Find("Order UI Text").GetComponent<TMP_Text>();
         
         UpdateUI();
     }
@@ -129,24 +146,33 @@ public class OrderManager : SerializedMonoBehaviour
         for (int i = 0; i < orderButtons.Count; i++)
         {
             string requirementText = "<u>";
+            string submissionAreaText = "";
             foreach (var requirement in orderList[i].orderDetail)
             {
-                requirementText += $"{requirement.Key.ToString()}\t{requirement.Value.x}/{requirement.Value.y}\n";
+                int playerItemQuantity = FindFirstObjectByType<ItemManager>().playerItemStats[requirement.Key];
+                if (playerItemQuantity >= requirement.Value.y) requirementText += $"<color=green>";
+                requirementText +=
+                    $"{requirement.Key.ToString()}\t{playerItemQuantity}/{requirement.Value.y}\n";
+                if (playerItemQuantity >= requirement.Value.y) requirementText += $"</color>";
+                
+                submissionAreaText += $"{requirement.Key.ToString()}\t{requirement.Value.x}/{requirement.Value.y}\n";
             }
 
             requirementText += $"</u>\nReward\t${orderList[i].reward}";
 
             orderButtons[i].GetComponentInChildren<TMP_Text>().text = requirementText;
+            if (currentDealingOrderIndex == i) _orderSubmissionUIText.text = submissionAreaText;
         }
     }
     
     public bool TrySubmit(Item item)
     {
         bool canSubmit;
-        Order currentOrder = orderList[currentDealingOrderIndex];
-        canSubmit = currentOrder.orderDetail.ContainsKey(item.itemType);
+        SerializedDictionary<GridItemType, Vector2Int> currentOrderDetail = orderList[currentDealingOrderIndex].orderDetail;
+        canSubmit = currentOrderDetail.ContainsKey(item.itemType) &&
+                    currentOrderDetail[item.itemType].x < currentOrderDetail[item.itemType].y;
 
-        if (canSubmit) currentOrder.orderDetail[item.itemType] += Vector2Int.right; //item count +1
+        if (canSubmit) currentOrderDetail[item.itemType] += Vector2Int.right; //item count +1
         UpdateUI();
         
         return canSubmit;
@@ -154,9 +180,7 @@ public class OrderManager : SerializedMonoBehaviour
 
     public void StartSubmission(int orderIndex)
     {
-        currentDealingOrderIndex = orderIndex;
-        isSubmitting = true;
-        onSubmissionStart?.Invoke();
+        if(isSubmitting) return;
         
         //set button
         foreach (var button in orderButtons)
@@ -164,7 +188,15 @@ public class OrderManager : SerializedMonoBehaviour
             if (orderIndex != orderButtons.IndexOf(button)) button.interactable = false;
         }
         
-        //Show Submission Area is now set by button
+        //Show Submission Area
+        orderSubmissionArea.transform.DOMove(
+            orderSubmissionArea.transform.position - (Vector3)submissionAreaAnimationOffset, 0.25f);
+        
+        currentDealingOrderIndex = orderIndex;
+        isSubmitting = true;
+        onSubmissionStart?.Invoke();
+        
+        UpdateUI();
     }
 
     public void TryFulfillOrder()
@@ -183,6 +215,11 @@ public class OrderManager : SerializedMonoBehaviour
             
             //Reset Buttons
             foreach (var button in orderButtons) button.interactable = true;
+            
+            //Hide submission area
+            orderSubmissionArea.transform.DOMove(
+                orderSubmissionArea.transform.position + (Vector3)submissionAreaAnimationOffset, 0.25f);
+            
             UpdateUI();
         }
         
@@ -209,6 +246,11 @@ public class OrderManager : SerializedMonoBehaviour
         
         //Reset Buttons
         foreach (var button in orderButtons) button.interactable = true;
+        
+        //Hide submission area
+        orderSubmissionArea.transform.DOMove(
+            orderSubmissionArea.transform.position + (Vector3)submissionAreaAnimationOffset, 0.25f);
+        
         UpdateUI();
     }
     
