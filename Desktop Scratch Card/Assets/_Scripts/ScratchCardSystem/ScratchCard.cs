@@ -10,7 +10,7 @@ namespace _Scripts.ScratchCardSystem
     {
         public GridData gridData { get; } = new GridData();
 
-        private readonly List<Vector2Int> _rewardsList = new List<Vector2Int>();
+        // private readonly List<Vector2Int> _rewardsList = new List<Vector2Int>();
 
         private void OnEnable()
         {
@@ -32,15 +32,15 @@ namespace _Scripts.ScratchCardSystem
             gridData.items[row, column] = gridItem;
         }
 
-        public void AddReward(GridItemType itemType, int count)
-        {
-            _rewardsList.Add(new Vector2Int((int)itemType, count));
-        }
+        // public void AddReward(GridItemType itemType, int count)
+        // {
+        //     _rewardsList.Add(new Vector2Int((int)itemType, count));
+        // }
 
-        public List<Vector2Int> GetRewardList()
-        {
-            return _rewardsList;
-        }
+        // public List<Vector2Int> GetRewardList()
+        // {
+        //     return _rewardsList;
+        // }
 
         private void ShowCount(Vector2Int revealedGrid)
         {
