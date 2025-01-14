@@ -7,6 +7,8 @@ namespace _Scripts.ScratchCardSystem.GridSystem
     public class GridCover : MonoBehaviour
     {
         private SpriteRenderer _spriteRenderer;
+        private BoxCollider2D _boxCollider2D;
+        private SpriteRenderer _iconSpriteRenderer;
         private bool isRevealed = false;
         private bool isRevealing = false;
         private bool isMouseOver = false;  // 新增：追踪鼠标是否在当前格子上
@@ -19,6 +21,11 @@ namespace _Scripts.ScratchCardSystem.GridSystem
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
             _spriteRenderer.sortingOrder = 100;
+
+            _iconSpriteRenderer = transform.Find("Cover Icon").GetComponent<SpriteRenderer>();
+
+            _boxCollider2D = GetComponent<BoxCollider2D>();
+            _boxCollider2D.isTrigger = true;
         }
 
         void Update()
@@ -89,6 +96,8 @@ namespace _Scripts.ScratchCardSystem.GridSystem
                 ScratchCardManager.onCoverRevealStateChanged?.Invoke(grid, true);
                 ScratchCardManager.onCoverRevealed?.Invoke(grid);
             }));
+
+            _iconSpriteRenderer.DOFade(0, 0.1f);
         }
     }
 }
