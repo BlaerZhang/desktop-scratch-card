@@ -1,19 +1,15 @@
-using _Scripts.General;
-using UnityEngine;
-
-namespace _Scripts.PlayerUpgrades
+namespace _Scripts.PlayerUpgrades.AbilityUpgrades
 {
     // TODO: upgrade shared data
     public abstract class AbilityUpgrade : BaseUpgrade
     {
-        private int _level = 0;
         public int Level
         {
-            get => _level;
+            get => level;
             set
             {
-                _level = value;
-                CalculateResult(_level);
+                level = value;
+                CalculateResult(level);
             }
         }
 

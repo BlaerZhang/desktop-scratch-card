@@ -18,6 +18,7 @@ namespace _Scripts.ScratchCardSystem
         public static Action onMouseExitRevealedItem;
         public static Action<Vector2Int> onMouseDownRevealedItem;
 
+        public static Action<ScratchCard> onAllCardCoverRevealed;
         public static Action<ScratchCard> onScratchCardSubmitted;
 
         [Header("Scratch Card Master")]
@@ -141,6 +142,7 @@ namespace _Scripts.ScratchCardSystem
             int totalGrids = gridDimension.x * gridDimension.y;
             if (_revealedGrids == totalGrids)
             {
+                onAllCardCoverRevealed?.Invoke(_currentScratchCard);
                 _scratchCardFinished = true;
             }
         }

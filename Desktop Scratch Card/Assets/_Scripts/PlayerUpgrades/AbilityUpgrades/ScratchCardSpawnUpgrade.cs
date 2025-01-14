@@ -1,7 +1,6 @@
 using _Scripts.General;
-using UnityEngine;
 
-namespace _Scripts.PlayerUpgrades
+namespace _Scripts.PlayerUpgrades.AbilityUpgrades
 {
     public class ScratchCardSpawnUpgrade : AbilityUpgrade
     {

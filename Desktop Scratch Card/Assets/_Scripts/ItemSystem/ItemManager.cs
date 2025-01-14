@@ -32,7 +32,7 @@ public class ItemManager : SerializedMonoBehaviour
             playerItemStats = new Dictionary<GridItemType, int>();
 
         // 获取所有类型
-        var itemTypes = Enum.GetValues(typeof(ItemType));
+        var itemTypes = Enum.GetValues(typeof(GridItemType));
 
         // 确保字典包含所有类型
         foreach (GridItemType type in itemTypes)

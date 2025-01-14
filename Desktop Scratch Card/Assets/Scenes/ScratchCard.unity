@@ -1129,7 +1129,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityUpgradesPool:
   - {fileID: 4587614892717078052, guid: 0c4ef1f789548473ab12a6a8f95fd0bc, type: 3}
-  scratchCardUpgradesPool: []
+  scratchCardUpgradesPool:
+  - {fileID: 2583772188105222987, guid: b434c9cdc6d004e9489e275a39f335cb, type: 3}
 --- !u!1 &1323126877
 GameObject:
   m_ObjectHideFlags: 0
@@ -1182,7 +1183,7 @@ MonoBehaviour:
   gridDimension: {x: 3, y: 3}
   gridGapLength: {x: 0, y: 0}
   generateStartPoint: {x: 0, y: 0}
-  meanSpawnTime: 5
+  meanSpawnTime: 0
 --- !u!1 &1401379667
 GameObject:
   m_ObjectHideFlags: 0

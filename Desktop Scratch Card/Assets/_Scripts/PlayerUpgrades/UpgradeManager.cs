@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using _Scripts.PlayerUpgrades.AbilityUpgrades;
+using _Scripts.PlayerUpgrades.ScratchCardUpgrades;
 using _Scripts.ScratchCardSystem;
 using DG.Tweening;
 using UnityEngine;
@@ -38,7 +40,7 @@ namespace _Scripts.PlayerUpgrades
 
         private void OnEnable()
         {
-            ScratchCardManager.onScratchCardSubmitted += PlayScratchCardUpgrade;
+            ScratchCardManager.onAllCardCoverRevealed += PlayScratchCardUpgrade;
         }
 
         private void OnDisable()
@@ -49,19 +51,29 @@ namespace _Scripts.PlayerUpgrades
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Q)) AddAbilityUpgrade("0");
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                print("card upgraded: 0");
+                AddCardUpgrade("0");
+            }
         }
 
+        /// <summary>
+        /// play all available card bonus upgrade
+        /// </summary>
+        /// <param name="card"></param>
         private void PlayScratchCardUpgrade(ScratchCard card)
         {
             Sequence upgradeSequence = DOTween.Sequence();
             foreach (var upgrade in _activeCardUpgrades)
             {
-                // if (upgrade.Value.CheckCondition())
-                // {
-                    // upgradeSequence.Append(upgrade.Value.ApplyEffect(card));
-                    // upgradeSequence.Append(null);
-                // }
+                if (upgrade.Value.CheckWin(card, out Sequence winEffect))
+                {
+                    upgradeSequence.Append(winEffect);
+                }
             }
+
+            upgradeSequence?.Play();
         }
 
         /// <summary>
@@ -72,7 +84,9 @@ namespace _Scripts.PlayerUpgrades
         {
             ScratchCardUpgrade currentUpgrade = scratchCardUpgradesPool.Find(upgrade => upgrade.id == id);
             if (_activeCardUpgrades.TryAdd(id, currentUpgrade))
+            {
                 Instantiate(currentUpgrade, _scratchCardUpgradesHolder.transform);
+            }
         }
 
         private void RemoveCardUpgrade(string id)

@@ -6,17 +6,18 @@ namespace _Scripts.ScratchCardSystem
 {
     public class ScratchCard : MonoBehaviour
     {
-        private GridData _gridData = new GridData();
-        private List<Vector2Int> _rewardsList = new List<Vector2Int>();
+        public GridData gridData { get; } = new GridData();
+
+        private readonly List<Vector2Int> _rewardsList = new List<Vector2Int>();
 
         public void Initialize(int rows, int columns)
         {
-            _gridData.items = new GridItem[rows, columns];
+            gridData.items = new GridItem[rows, columns];
         }
 
         public void SetCardItemMatrix(int row, int column, GridItem gridItem)
         {
-            _gridData.items[row, column] = gridItem;
+            gridData.items[row, column] = gridItem;
         }
 
         public void AddReward(GridItemType itemType, int count)
