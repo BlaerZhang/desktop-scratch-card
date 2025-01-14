@@ -105,7 +105,10 @@ namespace _Scripts.ScratchCardSystem
             _currentScratchCard = scratchCardGenerator.GenerateScratchCard();
             _currentScratchCard.transform.position += (Vector3)generateStartAnimationOffset;
             _currentScratchCard.transform.DOMove(
-                (Vector2)_currentScratchCard.transform.position - generateStartAnimationOffset, 0.25f);
+                (Vector2)_currentScratchCard.transform.position - generateStartAnimationOffset, 0.25f).OnComplete((() =>
+            {
+                _currentScratchCard.transform.position += Vector3.back * 0.1f;
+            }));
         }
 
         private ScratchCard _currentScratchCard;
