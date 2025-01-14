@@ -7,11 +7,11 @@ namespace _Scripts.General.GameData
     [CreateAssetMenu(fileName = "AbilityUpgradeData", menuName = "Scriptable Objects/Ability Upgrade Data", order = 0)]
     public class AbilityUpgradeData : SerializedScriptableObject
     {
-        [SerializeField] private float cardMinSpawnTime;
-        public float CardMinSpawnTime
+        [SerializeField] private float cardMeanSpawnTime;
+        public float CardMeanSpawnTime
         {
-            get => cardMinSpawnTime;
-            set => cardMinSpawnTime = Mathf.Max(0, value);
+            get => cardMeanSpawnTime;
+            set => cardMeanSpawnTime = Mathf.Max(0, value);
         }
     }
 }

@@ -135,16 +135,15 @@ namespace _Scripts.ScratchCardSystem
             return _gridItemSo.itemPool[type].itemLevelData[level];
         }
 
-        private void DistributeItemCount(int row, int column, Vector2 position, int itemCount)
+        private TMP_Text DistributeItemCount(int row, int column, Vector2 position, int itemCount)
         {
             TMP_Text itemCountText = Instantiate(itemCountTextPrefab, position - new Vector2(-0.18f, 0.18f), Quaternion.identity, textParentObject.transform);
             itemCountText.text = itemCount.ToString();
             // itemCountText.fontSize = 3;
             itemCountText.alignment = TextAlignmentOptions.Center;
-
-            itemCountText.GetComponent<ItemCountText>().Grid = new Vector2Int(row, column);
-
             itemCountText.DOFade(0, 0);
+
+            return itemCountText;
         }
 
         /// <summary>
@@ -178,7 +177,7 @@ namespace _Scripts.ScratchCardSystem
 
             // distribute item count
             int currentItemCount = _itemCounts[row, column];
-            DistributeItemCount(row, column, itemObject.transform.position, currentItemCount);
+            TMP_Text itemCountText = DistributeItemCount(row, column, itemObject.transform.position, currentItemCount);
 
             // fill the reward list of the scratch card
             if (currentItemCount > 0)
@@ -188,7 +187,7 @@ namespace _Scripts.ScratchCardSystem
 
             // set card matrix for future modification
             var gridItem = itemObject.AddComponent<GridItem>();
-            gridItem.Initialize(itemType, currentItemCount, itemData);
+            gridItem.Initialize(itemType, itemCountText, itemData);
             scratchCardObject.SetCardItemMatrix(row, column, gridItem);
         }
 
@@ -221,7 +220,7 @@ namespace _Scripts.ScratchCardSystem
 
             // distribute item count
             int currentItemCount = _itemCounts[row, column];
-            DistributeItemCount(row, column, itemObject.transform.position, currentItemCount);
+            TMP_Text itemCountText = DistributeItemCount(row, column, itemObject.transform.position, currentItemCount);
 
             if (currentItemCount > 0)
             {
@@ -230,7 +229,7 @@ namespace _Scripts.ScratchCardSystem
 
             // set card matrix for future modification
             var gridItem = itemObject.AddComponent<GridItem>();
-            gridItem.Initialize(type, currentItemCount, itemData);
+            gridItem.Initialize(type, itemCountText, itemData);
             scratchCardObject.SetCardItemMatrix(row, column, gridItem);
         }
 

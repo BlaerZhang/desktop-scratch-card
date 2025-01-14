@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 namespace _Scripts.ScratchCardSystem.GridSystem
@@ -5,13 +6,13 @@ namespace _Scripts.ScratchCardSystem.GridSystem
     public class GridItem : MonoBehaviour
     {
         public GridItemType type { get; private set; }
-        public int itemCount;
+        public TMP_Text ItemCountText;
         public GridItemData GridItemData { get; private set; }
 
-        public void Initialize(GridItemType type, int itemCount, GridItemData gridItemData)
+        public void Initialize(GridItemType type, TMP_Text ItemCountText, GridItemData gridItemData)
         {
             this.type = type;
-            this.itemCount = itemCount;
+            this.ItemCountText = ItemCountText;
             this.GridItemData = gridItemData;
         }
     }

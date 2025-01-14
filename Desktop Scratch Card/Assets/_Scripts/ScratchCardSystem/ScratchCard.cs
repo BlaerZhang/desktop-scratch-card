@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using _Scripts.ScratchCardSystem.GridSystem;
 using UnityEngine;
+using DG.Tweening;
 
 namespace _Scripts.ScratchCardSystem
 {
@@ -9,6 +11,16 @@ namespace _Scripts.ScratchCardSystem
         public GridData gridData { get; } = new GridData();
 
         private readonly List<Vector2Int> _rewardsList = new List<Vector2Int>();
+
+        private void OnEnable()
+        {
+            ScratchCardManager.onCoverRevealed += ShowCount;
+        }
+
+        private void OnDisable()
+        {
+            ScratchCardManager.onCoverRevealed -= ShowCount;
+        }
 
         public void Initialize(int rows, int columns)
         {
@@ -28,6 +40,11 @@ namespace _Scripts.ScratchCardSystem
         public List<Vector2Int> GetRewardList()
         {
             return _rewardsList;
+        }
+
+        private void ShowCount(Vector2Int revealedGrid)
+        {
+            gridData.items[revealedGrid.x, revealedGrid.y].ItemCountText.DOFade(1, 0.1f);
         }
 
         public void SelfDestroy()

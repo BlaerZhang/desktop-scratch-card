@@ -6,7 +6,7 @@ namespace _Scripts.PlayerUpgrades.AbilityUpgrades
     {
         protected override void CalculateResult(int level)
         {
-            GameManager.Instance.dataManager.abilityUpgradeData.CardMinSpawnTime--;
+            GameManager.Instance.dataManager.abilityUpgradeData.CardMeanSpawnTime--;
         }
     }
 }

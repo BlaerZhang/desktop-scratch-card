@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using _Scripts.ScratchCardSystem;
 using _Scripts.ScratchCardSystem.GridSystem;
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 
 namespace _Scripts.PlayerUpgrades.ScratchCardUpgrades
@@ -11,10 +13,15 @@ namespace _Scripts.PlayerUpgrades.ScratchCardUpgrades
         public GridItemType mainType;
         public List<GridItemType> adjacentRewardTypes = new List<GridItemType>();
 
-        // TODO: add number to the text
-        private void AddRewardItemCount()
-        {
+        public int rewardItemCount = 2;
 
+        // TODO: add number to the text
+        private Tween AddRewardItemCount(int itemCount, TMP_Text itemCountText)
+        {
+            int finalCount = itemCount + rewardItemCount;
+
+            return DOVirtual.Int(itemCount, finalCount, 0.2f,
+                value => itemCountText.text = value.ToString());
         }
 
         public override bool CheckWin(ScratchCard card, out Sequence winEffect)
@@ -44,6 +51,8 @@ namespace _Scripts.PlayerUpgrades.ScratchCardUpgrades
                             // effect
                             winEffect.Append(currentItem.transform.DOShakeScale(winEffectDuration));
                             winEffect.Join(rightItem.transform.DOShakeScale(winEffectDuration));
+                            winEffect.Join(AddRewardItemCount(Int32.Parse(currentItem.ItemCountText.text), currentItem.ItemCountText));
+
                             hasWon = true;
                         }
                     }
@@ -55,6 +64,8 @@ namespace _Scripts.PlayerUpgrades.ScratchCardUpgrades
                             // effect
                             winEffect.Append(currentItem.transform.DOShakeScale(winEffectDuration));
                             winEffect.Join(downItem.transform.DOShakeScale(winEffectDuration));
+                            winEffect.Join(AddRewardItemCount(Int32.Parse(currentItem.ItemCountText.text), currentItem.ItemCountText));
+
                             hasWon = true;
                         }
                     }
@@ -66,6 +77,8 @@ namespace _Scripts.PlayerUpgrades.ScratchCardUpgrades
                             // effect
                             winEffect.Append(currentItem.transform.DOShakeScale(winEffectDuration));
                             winEffect.Join(leftItem.transform.DOShakeScale(winEffectDuration));
+                            winEffect.Join(AddRewardItemCount(Int32.Parse(currentItem.ItemCountText.text), currentItem.ItemCountText));
+
                             hasWon = true;
                         }
                     }
@@ -77,6 +90,8 @@ namespace _Scripts.PlayerUpgrades.ScratchCardUpgrades
                             // effect
                             winEffect.Append(currentItem.transform.DOShakeScale(winEffectDuration));
                             winEffect.Join(upItem.transform.DOShakeScale(winEffectDuration));
+                            winEffect.Join(AddRewardItemCount(Int32.Parse(currentItem.ItemCountText.text), currentItem.ItemCountText));
+
                             hasWon = true;
                         }
                     }

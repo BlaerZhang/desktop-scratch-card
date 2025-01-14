@@ -37,11 +37,11 @@ namespace _Scripts.ScratchCardSystem
         [SerializeField] private float meanSpawnTime;
         public float MeanSpawnTime
         {
-            get => GameManager.Instance.dataManager.abilityUpgradeData.CardMinSpawnTime;
+            get => GameManager.Instance.dataManager.abilityUpgradeData.CardMeanSpawnTime;
             set
             {
                 meanSpawnTime = value;
-                GameManager.Instance.dataManager.abilityUpgradeData.CardMinSpawnTime = meanSpawnTime;
+                GameManager.Instance.dataManager.abilityUpgradeData.CardMeanSpawnTime = meanSpawnTime;
             }
         }
         private float nextSpawnTime;         // 下次生成时间
