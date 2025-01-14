@@ -10,6 +10,7 @@ public class TimeTable : MonoBehaviour
     private TimeScheduler timeScheduler;
     [SerializeField] private GameObject eventBlockPrefab;
     [SerializeField] private RectTransform contentParent;
+    [SerializeField] private TMP_Text nextUpText;
 
     [Header("Settings")]
     [SerializeField] private float previewHours = 3f;
@@ -136,6 +137,12 @@ public class TimeTable : MonoBehaviour
         }
 
         SortEventBlocks();
+        
+        //update Next up
+        DateTime eventTime = currentTime.Date.Add(new TimeSpan(allEvents[0].hours, allEvents[0].minutes, 0));
+        TimeSpan timeUntilEvent = eventTime - currentTime;
+        nextUpText.text = $"{FormatTimeSpan(timeUntilEvent)}";
+
     }
 
     private void CreateEventBlock(TimeScheduler.ScheduledEvent evt, DateTime currentTime)
