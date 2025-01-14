@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace _Scripts.PlayerUpgrades.AbilityUpgrades
 {
     // TODO: upgrade shared data
@@ -13,11 +15,16 @@ namespace _Scripts.PlayerUpgrades.AbilityUpgrades
             }
         }
 
+        [SerializeField] protected int initialPrice;
+        public int Price => CalculateUpgradePrice(level);
+
         /// <summary>
         /// variable calculation formula
         /// </summary>
         /// <param name="level"></param>
         /// <returns></returns>
         protected abstract void CalculateResult(int level);
+
+        protected abstract int CalculateUpgradePrice(int level);
     }
 }

@@ -1,14 +1,18 @@
 using System;
 using System.Collections.Generic;
+using _Scripts.General;
 using _Scripts.PlayerUpgrades.AbilityUpgrades;
 using _Scripts.PlayerUpgrades.ScratchCardUpgrades;
 using _Scripts.ScratchCardSystem;
 using DG.Tweening;
+using Sirenix.OdinInspector;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace _Scripts.PlayerUpgrades
 {
-    public class UpgradeManager : MonoBehaviour
+    public class UpgradeManager : SerializedMonoBehaviour
     {
         private GameObject _scratchCardUpgradesHolder;
         private GameObject _abilityUpgradesHolder;
@@ -19,6 +23,9 @@ namespace _Scripts.PlayerUpgrades
         // 存储已激活的升级
         private Dictionary<string, ScratchCardUpgrade> _activeCardUpgrades = new Dictionary<string, ScratchCardUpgrade>();
         private Dictionary<string, AbilityUpgrade> _activeAbilityUpgrades = new Dictionary<string, AbilityUpgrade>();
+
+        [Title("Ability Upgrade UI")] 
+        public Dictionary<string, GameObject> upgradeUIComponents = new Dictionary<string, GameObject>();
 
         private void Awake()
         {
@@ -36,6 +43,7 @@ namespace _Scripts.PlayerUpgrades
                     parent = transform
                 }
             };
+            UpdateUpgradeUI();
         }
 
         private void OnEnable()
@@ -111,6 +119,32 @@ namespace _Scripts.PlayerUpgrades
             }
 
             if (activeAbilityUpgrade != null) activeAbilityUpgrade.Level++;
+        }
+
+        public void BuyAbilityUpgrade(string id)
+        {
+            if (GameManager.Instance.economyManager.Currency < _activeAbilityUpgrades[id].Price) return;
+            GameManager.Instance.economyManager.Currency -= _activeAbilityUpgrades[id].Price;
+            AddAbilityUpgrade(id);
+            
+            UpdateUpgradeUI();
+        }
+
+        private void UpdateUpgradeUI()
+        {
+            foreach (var uiComponentKVP in upgradeUIComponents)
+            {
+                TMP_Text levelText = uiComponentKVP.Value.transform.Find("Level Text").GetComponent<TMP_Text>();
+                // TMP_Text effectPreviewText = uiComponentKVP.Value.transform.Find("Effect Preview Text").GetComponent<TMP_Text>();
+                TMP_Text priceText = uiComponentKVP.Value.transform.Find("Button").GetComponentInChildren<TMP_Text>();
+                Button button = uiComponentKVP.Value.GetComponentInChildren<Button>();
+                AbilityUpgrade currentUpgrade = _activeAbilityUpgrades[uiComponentKVP.Key];
+
+                levelText.text = $"Lv.{currentUpgrade.Level}";
+                // effectPreviewText.text = $"{GameManager.Instance.dataManager.abilityUpgradeData}";
+                priceText.text = $"{currentUpgrade.Price}";
+                button.interactable = GameManager.Instance.economyManager.Currency >= currentUpgrade.Price;
+            }
         }
     }
 }

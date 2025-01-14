@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7153351381697990210}
-  - component: {fileID: 4587614892717078052}
+  - component: {fileID: 789453314568932570}
   m_Layer: 0
-  m_Name: ScratchCardSpawnUpgrade
+  m_Name: OrderRewardBoostUpgrade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4587614892717078052
+--- !u!114 &789453314568932570
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,9 +41,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 5719964031241709761}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0e188b38ba54a99874c23f05f2fb11c, type: 3}
+  m_Script: {fileID: 11500000, guid: 6428c28138337e84987e2c035b4e188a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 1
+  id: 0
   description: 
-  initialPrice: 200
+  initialPrice: 100

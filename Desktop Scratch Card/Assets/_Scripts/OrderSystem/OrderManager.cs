@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using _Scripts.General;
 using _Scripts.ScratchCardSystem.GridSystem;
 using DG.Tweening;
 using Sirenix.OdinInspector;
@@ -41,7 +42,9 @@ public class OrderManager : SerializedMonoBehaviour
             // print($"Quantity F: {0.9f + basicReward / 100f}");
             // print($"Type F: {0.9f + orderRequirements.Count / 10f}");
 
-            reward = Mathf.RoundToInt(basicReward * (0.9f + basicReward / 100f) * (0.9f + orderRequirements.Count / 10f));
+            reward = Mathf.RoundToInt(basicReward * (0.9f + basicReward / 1000f) *
+                                      (0.9f + orderRequirements.Count / 10f) * GameManager.Instance.dataManager
+                                          .abilityUpgradeData.OrderRewardBoost);
 
             isActive = false;
         }

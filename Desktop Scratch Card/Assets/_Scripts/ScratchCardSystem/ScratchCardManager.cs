@@ -5,6 +5,7 @@ using _Scripts.ItemCountGenerator;
 using _Scripts.ScratchCardSystem.GridSystem;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 // using _Scripts.Merger;
@@ -32,16 +33,16 @@ namespace _Scripts.ScratchCardSystem
         public Vector2 gridGapLength = Vector2.zero;
         public Vector2 generateStartPoint = Vector2.zero;
         public Vector2 generateStartAnimationOffset = Vector2.zero;
-
+        
         [Header("Spawn Time")]
-        [SerializeField] private float meanSpawnTime;
+        [SerializeField] private float initialMeanSpawnTime;
         public float MeanSpawnTime
         {
             get => GameManager.Instance.dataManager.abilityUpgradeData.CardMeanSpawnTime;
             set
             {
-                meanSpawnTime = value;
-                GameManager.Instance.dataManager.abilityUpgradeData.CardMeanSpawnTime = meanSpawnTime;
+                initialMeanSpawnTime = value;
+                GameManager.Instance.dataManager.abilityUpgradeData.CardMeanSpawnTime = initialMeanSpawnTime;
             }
         }
         private float nextSpawnTime;         // 下次生成时间
@@ -71,7 +72,7 @@ namespace _Scripts.ScratchCardSystem
 
         private void Awake()
         {
-            MeanSpawnTime = meanSpawnTime;
+            MeanSpawnTime = initialMeanSpawnTime;
 
             random = new System.Random();
             CalculateNextSpawnTime();

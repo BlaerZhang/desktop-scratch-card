@@ -13,5 +13,12 @@ namespace _Scripts.General.GameData
             get => cardMeanSpawnTime;
             set => cardMeanSpawnTime = Mathf.Max(0, value);
         }
+        
+        [SerializeField] private float orderRewardBoost;
+        public float OrderRewardBoost
+        {
+            get => orderRewardBoost;
+            set => orderRewardBoost = Mathf.Max(0, value);
+        }
     }
 }
