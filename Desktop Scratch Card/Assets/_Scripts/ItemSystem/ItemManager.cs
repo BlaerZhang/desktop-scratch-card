@@ -62,7 +62,7 @@ public class ItemManager : SerializedMonoBehaviour
         var items = card.gridData.items;
         foreach (var item in items)
         {
-            AddItem(item.type, Int32.Parse(item.ItemCountText.text));
+            AddItem(item.type, item.itemCount);
         }
     }
     

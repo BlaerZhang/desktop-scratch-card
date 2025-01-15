@@ -44,7 +44,7 @@ namespace _Scripts.ScratchCardSystem
 
         private void ShowCount(Vector2Int revealedGrid)
         {
-            gridData.items[revealedGrid.x, revealedGrid.y].ItemCountText.DOFade(1, 0.1f);
+            gridData.items[revealedGrid.x, revealedGrid.y].itemCountText.DOFade(1, 0.1f);
         }
 
         public void SelfDestroy()

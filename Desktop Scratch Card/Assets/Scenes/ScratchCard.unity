@@ -1189,9 +1189,9 @@ MonoBehaviour:
   scratchCardGenerator: {fileID: 1051425910}
   gridItemCountGenerator: {fileID: 204373773}
   gridDimension: {x: 3, y: 3}
-  gridGapLength: {x: 0, y: 0}
-  generateStartPoint: {x: 0, y: 0}
-  generateStartAnimationOffset: {x: 0, y: 0}
+  gridGapLength: {x: -0.38, y: -0.36}
+  generateStartPoint: {x: 5.5, y: -2.1}
+  generateStartAnimationOffset: {x: 0, y: -5}
   meanSpawnTime: 0
 --- !u!1 &1401379667
 GameObject:

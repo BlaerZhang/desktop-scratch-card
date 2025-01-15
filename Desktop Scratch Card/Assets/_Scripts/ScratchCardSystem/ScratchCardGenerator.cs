@@ -187,7 +187,7 @@ namespace _Scripts.ScratchCardSystem
 
             // set card matrix for future modification
             var gridItem = itemObject.AddComponent<GridItem>();
-            gridItem.Initialize(itemType, itemCountText, itemData);
+            gridItem.Initialize(itemType, currentItemCount, itemCountText, itemData);
             scratchCardObject.SetCardItemMatrix(row, column, gridItem);
         }
 
@@ -229,7 +229,7 @@ namespace _Scripts.ScratchCardSystem
 
             // set card matrix for future modification
             var gridItem = itemObject.AddComponent<GridItem>();
-            gridItem.Initialize(type, itemCountText, itemData);
+            gridItem.Initialize(type, currentItemCount, itemCountText, itemData);
             scratchCardObject.SetCardItemMatrix(row, column, gridItem);
         }
 

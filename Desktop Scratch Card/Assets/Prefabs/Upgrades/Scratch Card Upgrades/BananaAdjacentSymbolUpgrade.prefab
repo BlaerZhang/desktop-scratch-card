@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8901384734079398674}
   - component: {fileID: 2583772188105222987}
   m_Layer: 0
-  m_Name: AppleAdjacentSymbolUpgrade
+  m_Name: BananaAdjacentSymbolUpgrade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48,6 +48,6 @@ MonoBehaviour:
   description: 
   symbolEffectScale: 1.5
   winEffectDuration: 0.25
-  mainType: 0
-  adjacentRewardTypes: 00000000
-  rewardItemCount: 1
+  mainType: 2
+  adjacentRewardTypes: 01000000
+  rewardItemCount: 2
