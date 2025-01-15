@@ -108,13 +108,16 @@ namespace _Scripts.ItemCountGenerator
 
         private int[,] DistributeCount(Vector2Int dimension, int totalCount)
         {
-            int totalGrids = dimension.x * dimension.y;
+
+            int[,] gridCount = new int[dimension.x, dimension.y];
+
+            if (totalCount == 0) return gridCount;
             // the random portion the total number will be split into
             int n = Random.Range(1, totalCount + 1);
 
             int[] splitCounts = SplitRandomly(totalCount, n);
 
-            int[,] gridCount = new int[dimension.x, dimension.y];
+
             // 创建可用位置的列表
             List<Vector2Int> availablePositions = new List<Vector2Int>();
             for (int i = 0; i < dimension.x; i++)

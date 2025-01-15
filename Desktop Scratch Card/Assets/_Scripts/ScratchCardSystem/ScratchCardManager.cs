@@ -101,7 +101,6 @@ namespace _Scripts.ScratchCardSystem
         {
             if (_currentScratchCard != null) return;
 
-            // TODO: give card
             var itemCounts = gridItemCountGenerator.GenerateGridItemCount(gridDimension);
 
             scratchCardGenerator.Initialize(gridDimension, gridGapLength, generateStartPoint, gridItemSo, itemCounts);
