@@ -64,18 +64,12 @@ namespace _Scripts.ScratchCardSystem
             onCoverRevealed -= OnCoverRevealed;
         }
 
-        // TODO: trigger the generator of the scratch card
-
-        private void Awake()
+        void Start()
         {
             MeanSpawnTime = initialMeanSpawnTime;
 
             random = new System.Random();
             CalculateNextSpawnTime();
-        }
-
-        void Start()
-        {
             // GenerateScratchCard();
             // _gridItemMerger = new GridItemMerger(gridItemSo, _gridData);
         }
