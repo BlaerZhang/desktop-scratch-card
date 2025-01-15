@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: c0f2e9a4be2b8443ab186dd081e6763d
+guid: 6d2a7e3da1819c64d8507b3ee89234b1
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4369902993844554849
-    second: "\u8D44\u6E90 6_0"
+      213: 6582765506330816206
+    second: icon_coin_upgrade_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "\u8D44\u6E90 6_0"
+      name: icon_coin_upgrade_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 59
-        height: 40
+        width: 22
+        height: 23
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 16c4503ce9305ac30800000000000000
-      internalID: 4369902993844554849
+      spriteID: eceea8cd95eaa5b50800000000000000
+      internalID: 6582765506330816206
       vertices: []
       indices: 
       edges: []
@@ -134,8 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      "\u8D44\u6E90 6_0": 4369902993844554849
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
