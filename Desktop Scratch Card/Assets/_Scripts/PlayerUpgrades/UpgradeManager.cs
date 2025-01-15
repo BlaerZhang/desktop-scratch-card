@@ -129,6 +129,11 @@ namespace _Scripts.PlayerUpgrades
             if (activeAbilityUpgrade != null) activeAbilityUpgrade.Level++;
         }
 
+        public void GetCardUpgrade(string id)
+        {
+            AddCardUpgrade(id);
+        }
+
         public void BuyAbilityUpgrade(string id)
         {
             AbilityUpgrade currentUpgrade = _activeAbilityUpgrades.ContainsKey(id)

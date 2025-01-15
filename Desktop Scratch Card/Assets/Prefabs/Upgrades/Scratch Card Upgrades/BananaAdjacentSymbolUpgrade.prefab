@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce68100a97654f8eb877309a620205ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 0
+  id: 1
   description: 
   symbolEffectScale: 1.5
   winEffectDuration: 0.25
