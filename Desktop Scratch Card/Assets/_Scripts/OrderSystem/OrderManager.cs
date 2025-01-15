@@ -27,7 +27,7 @@ public class OrderManager : SerializedMonoBehaviour
         {
             int basicReward = 0;
             foreach (var detailKVP in orderDetail)
-                basicReward += detailKVP.Value.y * 10; //TODO: reward per item of type to design
+                basicReward += detailKVP.Value.y * 50; //TODO: reward per item of type to design
             // print($"Basic Reward: {basicReward}");
             // print($"Quantity F: {0.98f + basicReward / 500f}");
             // print($"Type F: {0.9f + orderDetail.Count / 10f}");
