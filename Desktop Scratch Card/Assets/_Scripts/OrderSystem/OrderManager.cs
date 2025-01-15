@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using _Scripts.General;
+using _Scripts.PlayerUpgrades;
 using _Scripts.ScratchCardSystem.GridSystem;
 using DG.Tweening;
 using Sirenix.OdinInspector;
@@ -22,6 +23,22 @@ public class OrderManager : SerializedMonoBehaviour
         public int reward;
         public bool isActive;
 
+        public int CalculateReward()
+        {
+            int basicReward = 0;
+            foreach (var detailKVP in orderDetail)
+                basicReward += detailKVP.Value.y * 10; //TODO: reward per item of type to design
+            // print($"Basic Reward: {basicReward}");
+            // print($"Quantity F: {0.98f + basicReward / 500f}");
+            // print($"Type F: {0.9f + orderDetail.Count / 10f}");
+            // print($"Reward Boost: {GameManager.Instance.dataManager.abilityUpgradeData.OrderRewardBoost}");
+            int reward = Mathf.RoundToInt(basicReward
+                                          * (0.98f + basicReward / 500f)
+                                          * (0.9f + orderDetail.Count / 10f)
+                                          * GameManager.Instance.dataManager.abilityUpgradeData.OrderRewardBoost);
+            return reward;
+        }
+
         /// <summary>
         /// Constructor of Order
         /// </summary>
@@ -31,21 +48,11 @@ public class OrderManager : SerializedMonoBehaviour
         {
             this.orderIndex = orderIndex;
             orderDetail = new SerializedDictionary<GridItemType, Vector2Int>();
-
-            int basicReward = 0;
-            foreach (var requirement in orderRequirements)
-            {
+            
+            foreach (var requirement in orderRequirements) 
                 orderDetail.Add(requirement.Key, new Vector2Int(0, requirement.Value));
-                basicReward += requirement.Value * 10; //TODO: reward per item of type to design
-            }
-            // print($"Basic Reward: {basicReward}");
-            // print($"Quantity F: {0.9f + basicReward / 100f}");
-            // print($"Type F: {0.9f + orderRequirements.Count / 10f}");
 
-            reward = Mathf.RoundToInt(basicReward * (0.9f + basicReward / 1000f) *
-                                      (0.9f + orderRequirements.Count / 10f) * GameManager.Instance.dataManager
-                                          .abilityUpgradeData.OrderRewardBoost);
-
+            reward = CalculateReward();
             isActive = false;
         }
     }
@@ -83,11 +90,13 @@ public class OrderManager : SerializedMonoBehaviour
     private void OnEnable()
     {
         ItemManager.onItemUpdated += UpdateUI;
+        UpgradeManager.onAbilityUpgraded += UpdateOrders;
     }
     
     private void OnDisable()
     {
         ItemManager.onItemUpdated -= UpdateUI;
+        UpgradeManager.onAbilityUpgraded -= UpdateOrders;
     }
 
     void Start()
@@ -122,10 +131,9 @@ public class OrderManager : SerializedMonoBehaviour
 
     private void InitOrders()
     {
+        GameManager.Instance.dataManager.abilityUpgradeData.OrderRewardBoost = 1;
         foreach (var config in orderConfigs)
-        {
             orderList.Add(GenerateOrderFromConfig(config));
-        }
     }
 
     private Order GenerateOrderFromConfig(OrderGenerationConfig config)
@@ -142,6 +150,14 @@ public class OrderManager : SerializedMonoBehaviour
         }
         
         return new Order(config.configIndex, requirements);
+    }
+
+    void UpdateOrders()
+    {
+        foreach (var order in orderList)
+            order.reward = order.CalculateReward();
+        
+        UpdateUI();
     }
 
     private void UpdateUI()

@@ -1473,10 +1473,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dataManager: {fileID: 468989703}
-  upgradeManager: {fileID: 0}
-  economyManager: {fileID: 0}
-  orderManager: {fileID: 0}
-  itemManager: {fileID: 0}
+  upgradeManager: {fileID: 2118770812}
+  economyManager: {fileID: 435577554394775052}
+  orderManager: {fileID: 348711066}
+  itemManager: {fileID: 1563091236}
 --- !u!1 &766119194
 GameObject:
   m_ObjectHideFlags: 0

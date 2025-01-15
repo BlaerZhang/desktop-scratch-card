@@ -14,8 +14,11 @@ public class EconomyManager : MonoBehaviour
             if (_currency == value) return;
             _currency = Math.Max(value, 0);
             UpdateCurrencyUI();
+            onCurrencyChanged?.Invoke();
         }
     }
+
+    public static Action onCurrencyChanged;
 
     [SerializeField] private TMP_Text currencyUIText;
 
@@ -26,7 +29,7 @@ public class EconomyManager : MonoBehaviour
 
     void UpdateCurrencyUI()
     {
-        DOVirtual.Int(Int32.Parse(currencyUIText.text), Currency, 0.2f,
+        DOVirtual.Int(Int32.Parse(currencyUIText.text), Currency, 0.5f,
             value => currencyUIText.text = value.ToString());
     }
 }

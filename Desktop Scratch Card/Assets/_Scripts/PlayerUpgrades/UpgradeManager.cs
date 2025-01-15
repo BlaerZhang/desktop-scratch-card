@@ -27,6 +27,8 @@ namespace _Scripts.PlayerUpgrades
         [Title("Ability Upgrade UI")] 
         public Dictionary<string, GameObject> upgradeUIComponents = new Dictionary<string, GameObject>();
 
+        public static Action onAbilityUpgraded;
+
         private void Awake()
         {
             _scratchCardUpgradesHolder = new GameObject("Active Scratch Card Upgrades")
@@ -43,17 +45,23 @@ namespace _Scripts.PlayerUpgrades
                     parent = transform
                 }
             };
-            UpdateUpgradeUI();
         }
 
         private void OnEnable()
         {
             ScratchCardManager.onAllCardCoverRevealed += PlayScratchCardUpgrade;
+            EconomyManager.onCurrencyChanged += UpdateUpgradeUI;
         }
 
         private void OnDisable()
         {
             ScratchCardManager.onScratchCardSubmitted += PlayScratchCardUpgrade;
+            EconomyManager.onCurrencyChanged -= UpdateUpgradeUI;
+        }
+
+        private void Start()
+        { 
+            UpdateUpgradeUI();
         }
 
         private void Update()
@@ -123,10 +131,13 @@ namespace _Scripts.PlayerUpgrades
 
         public void BuyAbilityUpgrade(string id)
         {
-            if (GameManager.Instance.economyManager.Currency < _activeAbilityUpgrades[id].Price) return;
-            GameManager.Instance.economyManager.Currency -= _activeAbilityUpgrades[id].Price;
+            AbilityUpgrade currentUpgrade = _activeAbilityUpgrades.ContainsKey(id)
+                ? _activeAbilityUpgrades[id]
+                : abilityUpgradesPool.Find(upgrade => upgrade.id == id);
+            if (GameManager.Instance.economyManager.Currency < currentUpgrade.Price) return;
+            GameManager.Instance.economyManager.Currency -= currentUpgrade.Price;
             AddAbilityUpgrade(id);
-            
+            onAbilityUpgraded?.Invoke();
             UpdateUpgradeUI();
         }
 
@@ -138,7 +149,9 @@ namespace _Scripts.PlayerUpgrades
                 // TMP_Text effectPreviewText = uiComponentKVP.Value.transform.Find("Effect Preview Text").GetComponent<TMP_Text>();
                 TMP_Text priceText = uiComponentKVP.Value.transform.Find("Button").GetComponentInChildren<TMP_Text>();
                 Button button = uiComponentKVP.Value.GetComponentInChildren<Button>();
-                AbilityUpgrade currentUpgrade = _activeAbilityUpgrades[uiComponentKVP.Key];
+                AbilityUpgrade currentUpgrade = _activeAbilityUpgrades.ContainsKey(uiComponentKVP.Key)
+                    ? _activeAbilityUpgrades[uiComponentKVP.Key]
+                    : abilityUpgradesPool.Find(upgrade => upgrade.id == uiComponentKVP.Key);
 
                 levelText.text = $"Lv.{currentUpgrade.Level}";
                 // effectPreviewText.text = $"{GameManager.Instance.dataManager.abilityUpgradeData}";
