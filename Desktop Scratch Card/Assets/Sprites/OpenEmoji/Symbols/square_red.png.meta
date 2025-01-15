@@ -103,13 +103,13 @@ TextureImporter:
       name: square_red_0
       rect:
         serializedVersion: 2
-        x: 93
+        x: 94
         y: 93
         width: 432
         height: 432
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 22, y: 24, z: 26, w: 23}
       customData: 
       outline: []
       physicsShape: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5d60f4f00526e1d4dbf6bbfbb38bc683
     internalID: 0
     vertices: []
     indices: 
