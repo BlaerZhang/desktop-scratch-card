@@ -1,4 +1,6 @@
 using System;
+using _Scripts.General;
+using _Scripts.General.GameData;
 using _Scripts.ItemCountGenerator;
 using _Scripts.ScratchCardSystem.GridSystem;
 using DG.Tweening;
@@ -17,6 +19,7 @@ namespace _Scripts.ScratchCardSystem
         public static Action onMouseExitRevealedItem;
         public static Action<Vector2Int> onMouseDownRevealedItem;
 
+        public static Action<ScratchCard> onAllCardCoverRevealed;
         public static Action<ScratchCard> onScratchCardSubmitted;
 
         [Header("Scratch Card Master")]
@@ -31,7 +34,16 @@ namespace _Scripts.ScratchCardSystem
         public Vector2 generateStartAnimationOffset = Vector2.zero;
 
         [Header("Spawn Time")]
-        public float meanSpawnTime = 15f;
+        [SerializeField] private float meanSpawnTime;
+        public float MeanSpawnTime
+        {
+            get => GameManager.Instance.dataManager.abilityUpgradeData.CardMinSpawnTime;
+            set
+            {
+                meanSpawnTime = value;
+                GameManager.Instance.dataManager.abilityUpgradeData.CardMinSpawnTime = meanSpawnTime;
+            }
+        }
         private float nextSpawnTime;         // 下次生成时间
         private System.Random random;
 
@@ -59,6 +71,8 @@ namespace _Scripts.ScratchCardSystem
 
         private void Awake()
         {
+            MeanSpawnTime = meanSpawnTime;
+
             random = new System.Random();
             CalculateNextSpawnTime();
         }
@@ -85,7 +99,7 @@ namespace _Scripts.ScratchCardSystem
         private void CalculateNextSpawnTime()
         {
             // 使用指数分布（泊松过程的时间间隔）
-            float lambda = 1f / meanSpawnTime;
+            float lambda = 1f / MeanSpawnTime;
             float randomValue = (float)(-Math.Log(1f - (float)random.NextDouble()) / lambda);
 
             // 将当前时间加上随机间隔
@@ -94,9 +108,7 @@ namespace _Scripts.ScratchCardSystem
 
         private void GenerateScratchCard()
         {
-            print("in generating");
             if (_currentScratchCard != null) return;
-            print("card is null");
 
             // TODO: give card
             var itemCounts = gridItemCountGenerator.GenerateGridItemCount(gridDimension);
@@ -144,6 +156,7 @@ namespace _Scripts.ScratchCardSystem
             int totalGrids = gridDimension.x * gridDimension.y;
             if (_revealedGrids == totalGrids)
             {
+                onAllCardCoverRevealed?.Invoke(_currentScratchCard);
                 _scratchCardFinished = true;
             }
         }

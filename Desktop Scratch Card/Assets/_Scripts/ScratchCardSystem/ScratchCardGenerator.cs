@@ -135,7 +135,7 @@ namespace _Scripts.ScratchCardSystem
             return _gridItemSo.itemPool[type].itemLevelData[level];
         }
 
-        private void DistributeItemCount(int row, int column, Vector2 position, GridItemType itemType, int itemCount)
+        private void DistributeItemCount(int row, int column, Vector2 position, int itemCount)
         {
             TMP_Text itemCountText = Instantiate(itemCountTextPrefab, position - new Vector2(-0.18f, 0.18f), Quaternion.identity, textParentObject.transform);
             itemCountText.text = itemCount.ToString();
@@ -145,12 +145,6 @@ namespace _Scripts.ScratchCardSystem
             itemCountText.GetComponent<ItemCountText>().Grid = new Vector2Int(row, column);
 
             itemCountText.DOFade(0, 0);
-
-            // fill the reward list of the scratch card
-            if (itemCount > 0)
-            {
-                scratchCardObject.AddReward(itemType, itemCount);
-            }
         }
 
         /// <summary>
@@ -176,12 +170,7 @@ namespace _Scripts.ScratchCardSystem
             int randItemLevelDataIndex = Utils.CalculateMultiProbability(_gridItemSo.itemPool[itemType].itemLevelData);
             var itemData = FetchGridItem(itemType, randItemLevelDataIndex);
 
-            var gridItem = itemObject.AddComponent<GridItem>();
-            gridItem.Initialize(itemType, itemData);
 
-            scratchCardObject.SetCardItemMatrix(row, column, gridItem);
-
-            // SetItemData(gridItem, randItemData);
 
             // set sprite
             SpriteRenderer sr = itemObject.AddComponent<SpriteRenderer>();
@@ -189,7 +178,18 @@ namespace _Scripts.ScratchCardSystem
 
             // distribute item count
             int currentItemCount = _itemCounts[row, column];
-             DistributeItemCount(row, column, itemObject.transform.position, itemType, currentItemCount);
+            DistributeItemCount(row, column, itemObject.transform.position, currentItemCount);
+
+            // fill the reward list of the scratch card
+            if (currentItemCount > 0)
+            {
+                scratchCardObject.AddReward(itemType, currentItemCount);
+            }
+
+            // set card matrix for future modification
+            var gridItem = itemObject.AddComponent<GridItem>();
+            gridItem.Initialize(itemType, currentItemCount, itemData);
+            scratchCardObject.SetCardItemMatrix(row, column, gridItem);
         }
 
         /// <summary>
@@ -215,16 +215,23 @@ namespace _Scripts.ScratchCardSystem
             var itemType = type;
             var itemData = FetchGridItem(itemType, level);
 
-            var gridItem = itemObject.AddComponent<GridItem>();
-            gridItem.Initialize(type, itemData);
-
-            scratchCardObject.SetCardItemMatrix(row, column, gridItem);
-
-            // SetItemData(gridItem, randItemData);
-
             // set sprite
             SpriteRenderer sr = itemObject.AddComponent<SpriteRenderer>();
             sr.sprite = itemData.image;
+
+            // distribute item count
+            int currentItemCount = _itemCounts[row, column];
+            DistributeItemCount(row, column, itemObject.transform.position, currentItemCount);
+
+            if (currentItemCount > 0)
+            {
+                scratchCardObject.AddReward(itemType, currentItemCount);
+            }
+
+            // set card matrix for future modification
+            var gridItem = itemObject.AddComponent<GridItem>();
+            gridItem.Initialize(type, currentItemCount, itemData);
+            scratchCardObject.SetCardItemMatrix(row, column, gridItem);
         }
 
         public ScratchCard GenerateScratchCard()
