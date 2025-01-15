@@ -6,9 +6,14 @@ using UnityEngine;
 
 public class OrderRewardBoostUpgrade : AbilityUpgrade
 {
-    protected override void CalculateResult(int level)
+    public override float CalculateResult(int level)
     {
-        GameManager.Instance.dataManager.abilityUpgradeData.OrderRewardBoost = 1f + level / 10f;
+        return 1f + level / 10f;
+    }
+
+    protected override void ApplyResult(float result)
+    {
+        GameManager.Instance.dataManager.abilityUpgradeData.OrderRewardBoost = result;
     }
 
     protected override int CalculateUpgradePrice(int level)

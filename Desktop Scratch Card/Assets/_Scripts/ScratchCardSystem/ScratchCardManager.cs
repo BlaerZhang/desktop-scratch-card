@@ -35,15 +35,11 @@ namespace _Scripts.ScratchCardSystem
         public Vector2 generateStartAnimationOffset = Vector2.zero;
         
         [Header("Spawn Time")]
-        [SerializeField] private float initialMeanSpawnTime;
+        public float initialMeanSpawnTime;
         public float MeanSpawnTime
         {
-            get => GameManager.Instance.dataManager.abilityUpgradeData.CardMeanSpawnTime;
-            set
-            {
-                initialMeanSpawnTime = value;
-                GameManager.Instance.dataManager.abilityUpgradeData.CardMeanSpawnTime = initialMeanSpawnTime;
-            }
+            get => initialMeanSpawnTime + GameManager.Instance.dataManager.abilityUpgradeData.CardMeanSpawnReduction;
+            set => GameManager.Instance.dataManager.abilityUpgradeData.CardMeanSpawnReduction = value - initialMeanSpawnTime;
         }
         private float nextSpawnTime;         // 下次生成时间
         private System.Random random;

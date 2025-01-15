@@ -5,9 +5,14 @@ namespace _Scripts.PlayerUpgrades.AbilityUpgrades
 {
     public class ScratchCardSpawnUpgrade : AbilityUpgrade
     {
-        protected override void CalculateResult(int level)
+        public override float CalculateResult(int level)
         {
-            GameManager.Instance.dataManager.abilityUpgradeData.CardMeanSpawnTime--;
+            return -level;
+        }
+
+        protected override void ApplyResult(float result)
+        {
+            GameManager.Instance.dataManager.abilityUpgradeData.CardMeanSpawnReduction = result;
         }
 
         protected override int CalculateUpgradePrice(int level)

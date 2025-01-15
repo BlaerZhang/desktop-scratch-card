@@ -11,7 +11,7 @@ namespace _Scripts.PlayerUpgrades.AbilityUpgrades
             set
             {
                 level = value;
-                CalculateResult(level);
+                ApplyResult(CalculateResult(level));
             }
         }
 
@@ -23,7 +23,9 @@ namespace _Scripts.PlayerUpgrades.AbilityUpgrades
         /// </summary>
         /// <param name="level"></param>
         /// <returns></returns>
-        protected abstract void CalculateResult(int level);
+        public abstract float CalculateResult(int level);
+
+        protected abstract void ApplyResult(float result);
 
         protected abstract int CalculateUpgradePrice(int level);
     }
