@@ -1003,7 +1003,7 @@ MonoBehaviour:
   gridGapLength: {x: -0.38, y: -0.36}
   generateStartPoint: {x: 6.82, y: -2.75}
   generateStartAnimationOffset: {x: 0, y: -5}
-  initialMeanSpawnTime: 5
+  initialMeanSpawnTime: 10
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -4004,7 +4004,7 @@ MonoBehaviour:
     periodMinutes: 5
     duration: 10
     eventHandler: {fileID: 411461074}
-    hideInTimeTable: 0
+    hideInTimeTable: 1
 --- !u!1 &1417379050
 GameObject:
   m_ObjectHideFlags: 0

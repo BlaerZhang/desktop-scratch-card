@@ -49,5 +49,5 @@ MonoBehaviour:
   symbolEffectScale: 1.5
   winEffectDuration: 0.25
   mainType: 1
-  adjacentRewardTypes: 04000000
-  rewardItemCount: 2
+  adjacentRewardTypes: 01000000
+  rewardItemCount: 1
