@@ -147,18 +147,18 @@ namespace _Scripts.PlayerUpgrades
             {
                 TMP_Text levelText = uiComponentKVP.Value.transform.Find("Level Text").GetComponent<TMP_Text>();
                 TMP_Text effectPreviewText = uiComponentKVP.Value.transform.Find("Effect Preview Text").GetComponent<TMP_Text>();
-                TMP_Text priceText = uiComponentKVP.Value.transform.Find("Button").GetComponentInChildren<TMP_Text>();
+                TMP_Text priceText = uiComponentKVP.Value.transform.Find("Button/Price").GetComponentInChildren<TMP_Text>();
                 Button button = uiComponentKVP.Value.GetComponentInChildren<Button>();
                 AbilityUpgrade currentUpgrade = _activeAbilityUpgrades.ContainsKey(uiComponentKVP.Key)
                     ? _activeAbilityUpgrades[uiComponentKVP.Key]
                     : abilityUpgradesPool.Find(upgrade => upgrade.id == uiComponentKVP.Key);
 
-                levelText.text = $"Lv.{currentUpgrade.Level}";
+                levelText.text = $"Level {currentUpgrade.Level}";
                 effectPreviewText.text =
                     $"{currentUpgrade.CalculateResult(currentUpgrade.Level)}   →   {currentUpgrade.CalculateResult(currentUpgrade.Level + 1)}";
-                priceText.text = $"{currentUpgrade.Price}";
+                priceText.text = $"{currentUpgrade.Price.ToKMB()}";
                 button.interactable = GameManager.Instance.economyManager.Currency >= currentUpgrade.Price;
             }
         }
-    }-
+    }
 }
