@@ -460,13 +460,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 5
+      Data: 6
     - Name: 
       Entry: 7
       Data: 
     - Name: $k
       Entry: 3
-      Data: 3
+      Data: 2
     - Name: $v
       Entry: 4
       Data: 0.2
@@ -481,7 +481,7 @@ MonoBehaviour:
       Data: 9
     - Name: $v
       Entry: 4
-      Data: 0.03
+      Data: 0.05
     - Name: 
       Entry: 8
       Data: 
@@ -490,10 +490,22 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 6
+      Data: 3
     - Name: $v
       Entry: 4
-      Data: 0.07
+      Data: 0.12
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 0
+    - Name: $v
+      Entry: 4
+      Data: 0.3
     - Name: 
       Entry: 8
       Data: 
@@ -505,7 +517,7 @@ MonoBehaviour:
       Data: 1
     - Name: $v
       Entry: 4
-      Data: 0.4
+      Data: 0.25
     - Name: 
       Entry: 8
       Data: 
@@ -514,10 +526,10 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 2
+      Data: 6
     - Name: $v
       Entry: 4
-      Data: 0.3
+      Data: 0.08
     - Name: 
       Entry: 8
       Data: 
@@ -785,20 +797,15 @@ MonoBehaviour:
   orderConfigs:
   - configIndex: 0
     minTypeCount: 3
-    maxTypeCount: 5
-    minRequiredAmount: 5
-    maxRequiredAmount: 9
+    maxTypeCount: 4
+    minRequiredAmount: 2
+    maxRequiredAmount: 3
   - configIndex: 1
     minTypeCount: 2
-    maxTypeCount: 3
-    minRequiredAmount: 3
-    maxRequiredAmount: 5
-  - configIndex: 2
-    minTypeCount: 1
     maxTypeCount: 2
     minRequiredAmount: 1
-    maxRequiredAmount: 3
-  - configIndex: 3
+    maxRequiredAmount: 2
+  - configIndex: 2
     minTypeCount: 1
     maxTypeCount: 1
     minRequiredAmount: 1
@@ -996,7 +1003,7 @@ MonoBehaviour:
   gridGapLength: {x: -0.38, y: -0.36}
   generateStartPoint: {x: 6.82, y: -2.75}
   generateStartAnimationOffset: {x: 0, y: -5}
-  initialMeanSpawnTime: 60
+  initialMeanSpawnTime: 5
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
