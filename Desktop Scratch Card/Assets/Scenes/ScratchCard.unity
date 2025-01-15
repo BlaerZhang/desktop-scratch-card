@@ -521,6 +521,7 @@ MonoBehaviour:
     minutes: 8
     duration: 5
     eventHandler: {fileID: 0}
+    hideInTimeTable: 0
     isActive: 0
   periodicEventConfigs: []
 --- !u!4 &420320167
@@ -927,6 +928,9 @@ MonoBehaviour:
     ReferencedUnityObjects:
     - {fileID: 5048684546067785324, guid: a2db7f49a7094b64f838ecb83769471a, type: 3}
     - {fileID: 5048684546067785324, guid: 10bd0150d4e4e3642be79bb5fc96f29b, type: 3}
+    - {fileID: 5048684546067785324, guid: 3022281f7f1ff5b4a8088470a18b7f71, type: 3}
+    - {fileID: 5048684546067785324, guid: 6a5a59ba3fa02c143a3696e6c57b151e, type: 3}
+    - {fileID: 5048684546067785324, guid: cf42cba0dbf9c894bbabcdb8bd190cfc, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -987,7 +991,7 @@ MonoBehaviour:
       Data: 2
     - Name: $v
       Entry: 10
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 8
       Data: 
@@ -999,7 +1003,7 @@ MonoBehaviour:
       Data: 3
     - Name: $v
       Entry: 10
-      Data: 0
+      Data: 3
     - Name: 
       Entry: 8
       Data: 
@@ -1011,7 +1015,7 @@ MonoBehaviour:
       Data: 4
     - Name: $v
       Entry: 10
-      Data: 1
+      Data: 4
     - Name: 
       Entry: 8
       Data: 
@@ -1081,8 +1085,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1c5f82136fc14333b03baf845549992, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textCanvas: {fileID: 8753347542069700537, guid: b4faf1a2623b34659aa6ee7f00d0d5ed, type: 3}
-  itemCountTextPrefab: {fileID: 856162046085309395, guid: 717bd54e100d24a7683cd12d336efaef, type: 3}
+  itemCountTextPrefab: {fileID: 513740135}
+  gridCoverSprite: {fileID: 21300000, guid: b02356d05d0068345bdcabe568fd4696, type: 3}
+  coverIconSprite: {fileID: 21300000, guid: 0434cffa1be8bd2478ed52d35d970a87, type: 3}
+  gridBGSprite: {fileID: 21300000, guid: 08a196d9946756d4198b353024bb90ca, type: 3}
+  numberTagSprite: {fileID: 21300000, guid: fdcd496555f9f664fbcbb3d1935622bb, type: 3}
+  cardBackground: {fileID: -8591841196876885249, guid: ab3f84b4a98f2374bb0184952c5eefb7, type: 3}
 --- !u!1 &1192774047
 GameObject:
   m_ObjectHideFlags: 0
@@ -1177,12 +1185,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d0d84542addb418b8045f9a9636fd55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridItemSo: {fileID: 11400000, guid: eded18eae2e4b4a1baec98b7a264fc9d, type: 2}
+  gridItemSo: {fileID: 11400000, guid: 092ea6eb24115444281ff16faa1500cd, type: 2}
   scratchCardGenerator: {fileID: 1051425910}
   gridItemCountGenerator: {fileID: 204373773}
   gridDimension: {x: 3, y: 3}
-  gridGapLength: {x: 0, y: 0}
-  generateStartPoint: {x: 0, y: 0}
+  gridGapLength: {x: -0.38, y: -0.36}
+  generateStartPoint: {x: 5.5, y: -2.1}
+  generateStartAnimationOffset: {x: 0, y: -5}
   meanSpawnTime: 0
 --- !u!1 &1401379667
 GameObject:
@@ -1228,7 +1237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7d3763f09594e9c859fbd52c595d143, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilityUpgradeData: {fileID: 11400000, guid: f0181a4c998b44a95bedc45de9d3401f, type: 2}
+  abilityUpgradeData: {fileID: 11400000, guid: 16c28ffa41581204589ef4325efca606, type: 2}
 --- !u!1 &1564585117
 GameObject:
   m_ObjectHideFlags: 0

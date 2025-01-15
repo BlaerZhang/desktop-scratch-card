@@ -180,14 +180,14 @@ namespace _Scripts.ScratchCardSystem
             TMP_Text itemCountText = DistributeItemCount(row, column, itemObject.transform.position, currentItemCount);
 
             // fill the reward list of the scratch card
-            if (currentItemCount > 0)
-            {
-                scratchCardObject.AddReward(itemType, currentItemCount);
-            }
+            // if (currentItemCount > 0)
+            // {
+            //     scratchCardObject.AddReward(itemType, currentItemCount);
+            // }
 
             // set card matrix for future modification
             var gridItem = itemObject.AddComponent<GridItem>();
-            gridItem.Initialize(itemType, itemCountText, itemData);
+            gridItem.Initialize(itemType, currentItemCount, itemCountText, itemData);
             scratchCardObject.SetCardItemMatrix(row, column, gridItem);
         }
 
@@ -222,14 +222,14 @@ namespace _Scripts.ScratchCardSystem
             int currentItemCount = _itemCounts[row, column];
             TMP_Text itemCountText = DistributeItemCount(row, column, itemObject.transform.position, currentItemCount);
 
-            if (currentItemCount > 0)
-            {
-                scratchCardObject.AddReward(itemType, currentItemCount);
-            }
+            // if (currentItemCount > 0)
+            // {
+            //     scratchCardObject.AddReward(itemType, currentItemCount);
+            // }
 
             // set card matrix for future modification
             var gridItem = itemObject.AddComponent<GridItem>();
-            gridItem.Initialize(type, itemCountText, itemData);
+            gridItem.Initialize(type, currentItemCount, itemCountText, itemData);
             scratchCardObject.SetCardItemMatrix(row, column, gridItem);
         }
 

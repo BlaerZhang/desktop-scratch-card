@@ -972,7 +972,7 @@ MonoBehaviour:
   gridGapLength: {x: -0.38, y: -0.36}
   generateStartPoint: {x: 6.82, y: -2.75}
   generateStartAnimationOffset: {x: 0, y: -5}
-  initialMeanSpawnTime: 120
+  initialMeanSpawnTime: 60
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

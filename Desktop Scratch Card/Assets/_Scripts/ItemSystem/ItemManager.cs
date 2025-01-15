@@ -59,10 +59,10 @@ public class ItemManager : SerializedMonoBehaviour
 
     private void AddItems(ScratchCard card)
     {
-        var items = card.GetRewardList();
+        var items = card.gridData.items;
         foreach (var item in items)
         {
-            AddItem((GridItemType)item.x, item.y);
+            AddItem(item.type, item.itemCount);
         }
     }
     
