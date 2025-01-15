@@ -132,8 +132,13 @@ public class OrderManager : SerializedMonoBehaviour
     private void InitOrders()
     {
         GameManager.Instance.dataManager.abilityUpgradeData.OrderRewardBoost = 1;
-        foreach (var config in orderConfigs)
-            orderList.Add(GenerateOrderFromConfig(config));
+        foreach (var config in orderConfigs) orderList.Add(GenerateOrderFromConfig(config));
+    }
+
+    private void RefreshOrders()
+    {
+        orderList.Clear();
+        foreach (var config in orderConfigs) orderList.Add(GenerateOrderFromConfig(config));
     }
 
     private Order GenerateOrderFromConfig(OrderGenerationConfig config)
@@ -230,7 +235,8 @@ public class OrderManager : SerializedMonoBehaviour
         if (canFulfill)
         {
             FindFirstObjectByType<EconomyManager>().Currency += currentOrder.reward; //Fulfill & Pay
-            orderList[currentDealingOrderIndex] = GenerateOrderFromConfig(orderConfigs[currentDealingOrderIndex]); //generate new order
+            // orderList[currentDealingOrderIndex] = GenerateOrderFromConfig(orderConfigs[currentDealingOrderIndex]); //generate new order
+            RefreshOrders();
             
             //Reset Buttons
             foreach (var button in orderButtons) button.interactable = true;
