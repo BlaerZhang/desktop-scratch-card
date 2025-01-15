@@ -1,15 +1,16 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CardUpgradeScheduledEventHandler : BaseScheduledEventHandler
 {
-    public GameObject cardUpgradeUI;
+    public List<GameObject> cardUpgradeUI;
     public override void OnEventStart()
     {
-        cardUpgradeUI.SetActive(true);
+        cardUpgradeUI[Random.Range(0,cardUpgradeUI.Count)].SetActive(true);
     }
     
     public override void OnEventEnd()
     {
-        cardUpgradeUI.SetActive(false);
+        foreach (var gameObject in cardUpgradeUI) gameObject.SetActive(false);
     }
 }
